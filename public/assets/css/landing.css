@@ -1,0 +1,274 @@
+/* ===================== */
+/* HERO */
+/* ===================== */
+.hero {
+    padding: 50px 0;
+    background: #F3F4F6;
+}
+
+.hero-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 40px;
+}
+
+/* TEXT */
+.hero-text h1 {
+    font-size: 36px;
+    font-weight: 700;
+    color: #2d3748;
+    line-height: 1.4;
+    margin-bottom: 20px;
+}
+
+.hero-text p span {
+    color: #F97316;
+}
+
+.hero-text p {
+    color: #555;
+    margin-bottom: 25px;
+    line-height: 1.6;
+}
+
+/* IMAGE */
+.hero-image img {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+}
+
+/* ===================== */
+/* SECTION */
+/* ===================== */
+.section {
+    padding: 60px 0;
+}
+
+.section h2 {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 28px;
+    color: #2d3748;
+}
+
+/* ===================== */
+/* CARA KERJA */
+/* ===================== */
+
+/* GRID */
+.steps {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 15px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* CARD */
+.step {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: #f9fafb;
+    padding: 10px 15px;
+    border-radius: 15px;
+    position: relative;
+    border: 1px solid #eee;
+    transition: all 0.3s ease;
+}
+
+/* HOVER */
+.step:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+}
+
+/* ICON BOX */
+.step-icon {
+    background: rgba(253, 186, 116, 0.3);
+    padding: 12px;
+    border-radius: 12px;
+    font-size: 22px;
+    color: #F97316;
+    min-width: 45px;
+    text-align: center;
+    transition: 0.3s;
+}
+
+/* ICON HOVER EFFECT */
+.step:hover .step-icon {
+    background: #F97316;
+    color: white;
+}
+
+/* TEXT */
+.step-text h3 {
+    margin-bottom: 5px;
+    font-size: 16px;
+    color: #2d3748;
+}
+
+.step-text p {
+    font-size: 13px;
+    color: #666;
+    line-height: 1.5;
+    word-wrap: break-word;
+}
+
+.step-text {
+    min-width: 0;
+}
+
+/* NUMBER */
+.step-number {
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    background: #F97316;
+    color: white;
+    font-size: 13px;
+    font-weight: bold;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .steps {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ===================== */
+/* FORM REKOMENDASI */
+/* ===================== */
+.form-box {
+    max-width: 600px;
+    margin: auto;
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+}
+
+.form-box form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-box select {
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    background: #f9f9f9;
+}
+
+/* ===================== */
+/* BUTTON OVERRIDE */
+/* ===================== */
+.hero .btn-primary {
+    width: auto;
+    display: inline-block;
+    padding: 12px 20px;
+}
+
+/* ===================== */
+/* TENTANG */
+/* ===================== */
+#tentang p {
+    max-width: 700px;
+    margin: auto;
+    text-align: center;
+    color: #555;
+    line-height: 1.6;
+}
+
+/* ===================== */
+/* FEATURES (KEUNGGULAN) */
+/* ===================== */
+.features {
+    background: #F5EDE6;
+    padding: 80px 0;
+    text-align: center;
+}
+
+.features h2 {
+    font-size: 26px;
+    margin-bottom: 40px;
+    color: #2d3748;
+}
+
+/* LIST */
+.feature-list {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+/* CARD */
+.feature-card {
+    background: white;
+    width: 240px;
+    padding: 25px 20px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    transition: 0.3s;
+}
+
+.feature-card:hover {
+    transform: translateY(-8px);
+}
+
+/* ICON */
+.feature-card i {
+    background: rgba(253, 186, 116, 0.4);
+    width: 50px;
+    padding: 10px 10px;
+    border-radius: 10px;
+    font-size: 28px;
+    color: #F97316;
+    margin-bottom: 15px;
+}
+
+/* TITLE */
+.feature-card h3 {
+    font-size: 15px;
+    margin-bottom: 10px;
+    color: #374151;
+}
+
+/* DESC */
+.feature-card p {
+    font-size: 13px;
+    color: #374151;
+    line-height: 1.5;
+}
+
+/* ===================== */
+/* RESPONSIVE */
+/* ===================== */
+@media (max-width: 768px) {
+
+    .hero-wrapper {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .hero-text h1 {
+        font-size: 28px;
+        grid-template-columns: 1fr;
+    }
+
+    .feature-list {
+        flex-direction: column;
+        align-items: center;
+    }
+}

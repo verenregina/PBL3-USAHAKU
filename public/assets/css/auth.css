@@ -1,0 +1,62 @@
+/* TITLE */
+.auth-title {
+    text-align: center;
+    margin: 10px 0 20px;
+}
+
+/* ERROR */
+.alert-error {
+    background: #ffe5e5;
+    color: red;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+/* FORM */
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    font-weight: 600;
+    display: block;
+    margin-bottom: 6px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+}
+
+/* ERROR INPUT */
+.input-error {
+    border: 1px solid red;
+}
+
+/* PASSWORD */
+.password-wrapper {
+    position: relative;
+}
+
+.password-wrapper i {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+/* LINK */
+.forgot {
+    text-align: right;
+    margin-bottom: 15px;
+}
+
+.forgot a {
+    color: #F97316;
+    font-size: 14px;
+}
