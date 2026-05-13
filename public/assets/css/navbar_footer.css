@@ -41,11 +41,24 @@
     color: white;
     font-weight: 500;
     padding-bottom: 5px;
+    position: relative;
 }
 
-.nav-menu a.active,
-.nav-menu a:hover {
-    border-bottom: 3px solid #F97316;
+/* HOVER */
+.nav-menu a:hover{
+    color: #F97316;
+}
+
+/* ACTIVE */
+.nav-menu a.active::after{
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -8px;
+    width: 100%;
+    height: 3px;
+    background: #F97316;
+    border-radius: 10px;
 }
 
 /* BUTTON LOGIN */
