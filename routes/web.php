@@ -1,3 +1,4 @@
+
 <?php
 
 use Illuminate\Support\Facades\Route;
@@ -40,13 +41,3 @@ Route::get('/admin', function () {
     return view('admin.dashboard');
 
 })->middleware('auth');
-
-// RECOMMENDATION
-Route::get('/recommendation', [\App\Http\Controllers\RecommendationController::class, 'showForm'])->name('recommendation.form')->middleware('auth');
-Route::post('/recommendation', [\App\Http\Controllers\RecommendationController::class, 'processRecommendation'])->name('recommendation.process')->middleware('auth');
-
-// REKOMENDASI INDONESIA
-Route::get('/rekomendasi', [\App\Http\Controllers\RecommendationController::class, 'showForm'])->name('rekomendasi.form')->middleware('auth');
-Route::post('/rekomendasi', [\App\Http\Controllers\RecommendationController::class, 'processRecommendation'])->name('rekomendasi.process')->middleware('auth');
-
-Route::view('/hasil-rekomendasi', 'pages.hasil-rekomendasi')->name('hasil.rekomendasi')->middleware('auth');
