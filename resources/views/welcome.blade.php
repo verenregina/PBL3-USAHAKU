@@ -17,7 +17,7 @@
                     historis dari dataset usaha di <span>Jawa Timur</span>.
                 </p>
 
-                <a href="#rekomendasi" class="btn-primary">
+                <a href="{{ auth()->check() ? route('rekomendasi.form') : route('login') }}" class="btn-primary">
                     Mulai Analisis Sekarang
                 </a>
             </div>
@@ -138,25 +138,23 @@
             <h2>Mulai Rekomendasi</h2>
 
             <div class="form-box">
-                <form>
-                    <select>
-                        <option>Pilih Modal</option>
-                        <option>Kecil</option>
-                        <option>Sedang</option>
-                        <option>Besar</option>
-                    </select>
+                <p style="margin-bottom: 20px; text-align: center; color: #666;">
+                    @if(auth()->check())
+                        Silakan isi form di bawah untuk mendapatkan rekomendasi usaha
+                    @else
+                        Anda harus login terlebih dahulu untuk menggunakan fitur rekomendasi
+                    @endif
+                </p>
 
-                    <select>
-                        <option>Jenis Usaha</option>
-                        <option>Makanan & Minuman</option>
-                        <option>Jasa</option>
-                        <option>Perdagangan</option>
-                    </select>
-
-                    <button type="submit" class="btn-primary">
-                        Lihat Rekomendasi
-                    </button>
-                </form>
+                @if(auth()->check())
+                    <a href="{{ route('rekomendasi.form') }}" class="btn-primary" style="display: inline-block; width: 100%; text-align: center; padding: 12px; text-decoration: none; border-radius: 8px;">
+                        Buka Form Rekomendasi
+                    </a>
+                @else
+                    <a href="{{ route('login') }}" class="btn-primary" style="display: inline-block; width: 100%; text-align: center; padding: 12px; text-decoration: none; border-radius: 8px;">
+                        Login Terlebih Dahulu
+                    </a>
+                @endif
             </div>
         </div>
     </section>
