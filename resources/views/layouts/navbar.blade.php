@@ -8,12 +8,35 @@
         </div>
 
         <!-- MENU -->
-        <ul class="nav-menu">
-            <li><a href="{{ url('/') }}" class="active">Beranda</a></li>
-            <li><a href="#cara-kerja">Cara Kerja</a></li>
-            <li><a href="#rekomendasi">Rekomendasi</a></li>
-            <li><a href="#tentang">Tentang</a></li>
-        </ul>
+<ul class="nav-menu">
+
+    <li>
+        <a href="{{ url('/') }}"
+           class="{{ Request::is('/') ? 'active' : '' }}">
+            Beranda
+        </a>
+    </li>
+
+    <li>
+        <a href="#cara-kerja">
+            Cara Kerja
+        </a>
+    </li>
+
+    <li>
+        <a href="{{ url('/rekomendasi') }}"
+           class="{{ Request::is('rekomendasi') ? 'active' : '' }}">
+            Rekomendasi
+        </a>
+    </li>
+
+    <li>
+        <a href="#tentang">
+            Tentang
+        </a>
+    </li>
+
+</ul>
 
         <!-- BUTTON -->
         <div>
