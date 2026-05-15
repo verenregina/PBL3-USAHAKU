@@ -101,3 +101,4 @@ Route::delete('/admin/kelola-data/{id}', function ($id) {
     // TODO: Implementasi hapus data
     return redirect()->route('admin.kelola-data')->with('success', 'Data berhasil dihapus');
 })->middleware('auth')->name('kelola-data.destroy');
+});
