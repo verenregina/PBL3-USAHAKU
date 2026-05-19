@@ -45,7 +45,7 @@ Route::middleware('auth')->group(function () {
 
     /*
     |--------------------------------------------------------------------------
-    | DASHBOARD
+    | DASHBOARD ADMIN
     |--------------------------------------------------------------------------
     */
 
@@ -57,48 +57,68 @@ Route::middleware('auth')->group(function () {
 
         return view('admin.dashboard');
 
-})->middleware('auth')->name('admin');
+    })->name('admin');
 
-// KELOLA DATA
-Route::get('/admin/kelola-data', function () {
 
-    // proteksi sederhana
-    if (auth()->user()->role != 'admin') {
-        abort(403);
-    }
+    /*
+    |--------------------------------------------------------------------------
+    | KELOLA DATA
+    |--------------------------------------------------------------------------
+    */
 
-    return view('layouts.Kelola data');
+    Route::get('/admin/kelola-data', function () {
 
-})->middleware('auth')->name('admin.kelola-data');
+        if (auth()->user()->role != 'admin') {
+            abort(403);
+        }
 
-// Routes untuk CRUD data usaha
-Route::post('/admin/kelola-data', function () {
-    // proteksi sederhana
-    if (auth()->user()->role != 'admin') {
-        abort(403);
-    }
+        return view('admin.kelola-data');
 
-    // TODO: Implementasi penyimpanan data
-    return redirect()->route('admin.kelola-data')->with('success', 'Data berhasil ditambahkan');
-})->middleware('auth')->name('kelola-data.store');
+    })->name('admin.kelola-data');
 
-Route::put('/admin/kelola-data/{id}', function ($id) {
-    // proteksi sederhana
-    if (auth()->user()->role != 'admin') {
-        abort(403);
-    }
 
-    // TODO: Implementasi update data
-    return redirect()->route('admin.kelola-data')->with('success', 'Data berhasil diupdate');
-})->middleware('auth')->name('kelola-data.update');
+    /*
+    |--------------------------------------------------------------------------
+    | CRUD DATA
+    |--------------------------------------------------------------------------
+    */
 
-Route::delete('/admin/kelola-data/{id}', function ($id) {
-    // proteksi sederhana
-    if (auth()->user()->role != 'admin') {
-        abort(403);
-    }
+    Route::post('/admin/kelola-data', function () {
 
-    // TODO: Implementasi hapus data
-    return redirect()->route('admin.kelola-data')->with('success', 'Data berhasil dihapus');
-})->middleware('auth')->name('kelola-data.destroy');
+        if (auth()->user()->role != 'admin') {
+            abort(403);
+        }
+
+        return redirect()
+            ->route('admin.kelola-data')
+            ->with('success', 'Data berhasil ditambahkan');
+
+    })->name('kelola-data.store');
+
+
+    Route::put('/admin/kelola-data/{id}', function ($id) {
+
+        if (auth()->user()->role != 'admin') {
+            abort(403);
+        }
+
+        return redirect()
+            ->route('admin.kelola-data')
+            ->with('success', 'Data berhasil diupdate');
+
+    })->name('kelola-data.update');
+
+
+    Route::delete('/admin/kelola-data/{id}', function ($id) {
+
+        if (auth()->user()->role != 'admin') {
+            abort(403);
+        }
+
+        return redirect()
+            ->route('admin.kelola-data')
+            ->with('success', 'Data berhasil dihapus');
+
+    })->name('kelola-data.destroy');
+
 });

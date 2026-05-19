@@ -381,7 +381,7 @@
             </a>
 
             {{-- DATASET --}}
-            <a href="{{ route('admin.dataset') }}"
+            <a href="{{ route('admin') }}"
                class="menu-item {{ request()->routeIs('admin.dataset') ? 'active' : '' }}">
 
                 <svg viewBox="0 0 20 20" fill="currentColor">
