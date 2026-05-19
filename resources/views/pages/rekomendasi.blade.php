@@ -52,25 +52,39 @@
 
                         <label>Modal yang Tersedia</label>
 
-                        <select name="modal">
+                        <!-- DROPDOWN -->
+                        <select name="modal" id="modalSelect">
 
                             <option selected disabled>
                                 Pilih rentang modal
                             </option>
 
-                            <option>
+                            <option value="kecil">
                                 Kecil (Rp500.000 - Rp3.700.000)
                             </option>
 
-                            <option>
+                            <option value="sedang">
                                 Sedang (Rp3.800.000 - Rp5.300.000)
                             </option>
 
-                            <option>
+                            <option value="besar">
                                 Besar (Rp5.400.000 - Rp8.000.000)
                             </option>
 
+                            <option value="custom">
+                                Lainnya
+                            </option>
+
                         </select>
+
+                        <!-- INPUT NOMINAL -->
+                        <input 
+                            type="number"
+                            name="modal_custom"
+                            id="customModalInput"
+                            placeholder="Contoh: 15000000 (tanpa Rp dan titik)"
+                            style="display: none; margin-top: 10px;"
+                        >
 
                     </div>
 
@@ -99,7 +113,7 @@
                 </div>
 
                 <button type="submit" class="btn-submit">
-                    🚀 Mulai Analisis Usaha
+                    Mulai Analisis Usaha
                 </button>
 
             </form>
@@ -109,5 +123,24 @@
     </section>
 
 </div>
+
+<!-- SCRIPT -->
+<script>
+
+    const modalSelect = document.getElementById('modalSelect');
+    const customModalInput = document.getElementById('customModalInput');
+
+    modalSelect.addEventListener('change', function () {
+
+        if (this.value === 'custom') {
+
+            modalSelect.style.display = 'none';
+            customModalInput.style.display = 'block';
+
+        }
+
+    });
+
+</script>
 
 @endsection
