@@ -5,19 +5,18 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 
-class DatabaseSeeder extends Seeder
+class AdminSeeder extends Seeder
 {
     /**
      * Seed the application's database.
      */
     public function run(): void
     {
-        // Create admin user
         User::firstOrCreate(
-            ['email' => 'admin@example.com'],
+            ['email' => 'admin@gmail.com'],
             [
                 'name' => 'Admin USAHAKU',
-                'password' => bcrypt('password'),
+                'password' => bcrypt('adminUsahaku12'),
                 'role' => 'admin',
             ]
         );
