@@ -16,7 +16,7 @@
             <p>
                 Sistem ini memberikan rekomendasi usaha sekaligus
                 menganalisis potensi keberhasilan berdasarkan modal,
-                jenis usaha, dan data historis di wilayah Jawa Timur.
+                jenis usaha, dan data historis di wilayah <span>Jawa Timur</span>.
             </p>
 
             <a href="#form-rekomendasi" class="btn-orange">

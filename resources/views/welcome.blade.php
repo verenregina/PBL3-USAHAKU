@@ -132,7 +132,7 @@
 
             </div>
     </section>
-    <!-- REKOMENDASI -->
+    {{-- <!-- REKOMENDASI -->
     <section id="rekomendasi" class="section">
         <div class="container">
             <h2>Mulai Rekomendasi</h2>
@@ -157,5 +157,5 @@
                 @endif
             </div>
         </div>
-    </section>
+    </section> --}}
 @endsection
