@@ -356,8 +356,8 @@
             {{-- MENU UTAMA --}}
             <p class="menu-section">Utama</p>
 
-            <a href="{{ route('admin') }}"
-               class="menu-item {{ request()->routeIs('admin') ? 'active' : '' }}">
+            <a href="{{ route('admin.dashboard') }}"
+               class="menu-item {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
 
                 <svg viewBox="0 0 20 20" fill="currentColor">
                     <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"/>
@@ -381,7 +381,7 @@
             </a>
 
             {{-- DATASET --}}
-            <a href="{{ route('admin') }}"
+            <a href="{{ route('admin.dashboard') }}"
                class="menu-item {{ request()->routeIs('admin.dataset') ? 'active' : '' }}">
 
                 <svg viewBox="0 0 20 20" fill="currentColor">
@@ -394,7 +394,7 @@
             </a>
 
             {{-- DATA USAHA --}}
-            <a href="{{ route('admin') }}"
+            <a href="{{ route('admin.dashboard') }}"
                class="menu-item {{ request()->routeIs('admin.data-usaha') ? 'active' : '' }}">
 
                 <svg viewBox="0 0 20 20" fill="currentColor">
@@ -407,7 +407,7 @@
             {{-- RIWAYAT --}}
             <p class="menu-section">Riwayat</p>
 
-            <a href="{{ route('admin') }}"
+            <a href="{{ route('admin.dashboard') }}"
                class="menu-item {{ request()->routeIs('admin.history') ? 'active' : '' }}">
 
                 <svg viewBox="0 0 20 20" fill="currentColor">
@@ -417,7 +417,7 @@
                 <span>History</span>
             </a>
 
-            <a href="{{ route('admin') }}"
+            <a href="{{ route('admin.dashboard') }}"
                class="menu-item {{ request()->routeIs('admin.riwayat-pengguna') ? 'active' : '' }}">
 
                 <svg viewBox="0 0 20 20" fill="currentColor">

@@ -158,7 +158,7 @@
                 </svg>
             </div>
             <div class="stat-info">
-                <p class="stat-value">500</p>
+                <p class="stat-value">{{ $totalUsaha ?? 0 }}</p>
                 <p class="stat-label">Total Usaha</p>
             </div>
             <span class="stat-badge">+12%</span>
@@ -171,7 +171,7 @@
                 </svg>
             </div>
             <div class="stat-info">
-                <p class="stat-value">6</p>
+                <p class="stat-value">{{ $totalKategori ?? 0 }}</p>
                 <p class="stat-label">Total Kategori Usaha</p>
             </div>
         </article>
@@ -183,7 +183,7 @@
                 </svg>
             </div>
             <div class="stat-info">
-                <p class="stat-value">100</p>
+                <p class="stat-value">{{ $totalUser ?? 0 }}</p>
                 <p class="stat-label">Total User</p>
             </div>
             <span class="stat-badge">+8%</span>

@@ -491,36 +491,36 @@
     </div>
 
     {{-- FILTER BAR --}}
-    <div class="filter-bar">
+    <form class="filter-bar" action="{{ route('admin.kelola-data') }}" method="GET">
         <div class="filter-group">
             <span class="filter-label">Kategori</span>
-            <select class="filter-select">
+            <select class="filter-select" name="kategori">
                 <option value="">Semua Kategori</option>
-                <option>Kuliner</option>
-                <option>Fashion</option>
-                <option>Teknologi</option>
-                <option>Kesehatan</option>
-                <option>Pendidikan</option>
-                <option>Jasa</option>
+                @foreach($jenisUsaha as $jenis)
+                    <option value="{{ $jenis->id_jenis_usaha }}" {{ $filterKategori == $jenis->id_jenis_usaha ? 'selected' : '' }}>
+                        {{ $jenis->nama_jenis_usaha }}
+                    </option>
+                @endforeach
             </select>
         </div>
         <div class="filter-divider"></div>
         <div class="filter-group">
             <span class="filter-label">Status</span>
-            <select class="filter-select">
+            <select class="filter-select" name="status">
                 <option value="">Semua Status</option>
-                <option>Aktif</option>
-                <option>Non-Aktif</option>
+                <option value="aktif" {{ $filterStatus === 'aktif' ? 'selected' : '' }}>Aktif</option>
+                <option value="nonaktif" {{ $filterStatus === 'nonaktif' ? 'selected' : '' }}>Non-Aktif</option>
             </select>
         </div>
         <div class="filter-divider"></div>
         <div class="filter-group">
             <span class="filter-label">Kota</span>
-            <input type="text" class="filter-input" placeholder="Cari kota..." />
+            <input type="text" class="filter-input" name="kota" value="{{ $filterKota }}" placeholder="Cari kota..." />
         </div>
         <div class="filter-divider"></div>
-        <button class="btn-reset">Reset Filter</button>
-    </div>
+        <button type="submit" class="btn-reset">Terapkan</button>
+        <a href="{{ route('admin.kelola-data') }}" class="btn-reset">Reset Filter</a>
+    </form>
 
     {{-- TABLE CARD --}}
     <div class="table-card">
@@ -547,27 +547,30 @@
                 <tr>
                     <td class="td-no">{{ $index + 1 }}</td>
                     <td>
-                        <div class="td-name">{{ $item['nama_usaha'] }}</div>
-                        <div class="td-sub">ID: {{ $item['id'] }}</div>
+                        <div class="td-name">{{ $item->nama_usaha }}</div>
+                        <div class="td-sub">ID: {{ $item->id_umkm }}</div>
                     </td>
                     <td>
-                        <span class="badge badge-{{ \Illuminate\Support\Str::slug(strtolower($item['kategori'])) }}">
-                            {{ $item['kategori'] }}
+                        <span class="badge badge-{{ \Illuminate\Support\Str::slug(strtolower($item->jenisUsaha?->nama_jenis_usaha ?? 'lainnya')) }}">
+                            {{ $item->jenisUsaha?->nama_jenis_usaha ?? 'Lainnya' }}
                         </span>
                     </td>
-                    <td>{{ $item['kota'] }}</td>
-                    <td class="modal-value">Rp {{ number_format($item['modal_awal'], 0, ',', '.') }}</td>
+                    <td>{{ $item->daerah?->nama_daerah ?? '-' }}</td>
+                    <td class="modal-value">Rp {{ number_format($item->aset, 0, ',', '.') }}</td>
                     <td>
                         <span class="status-dot">
-                            <span class="dot {{ strtolower($item['status']) === 'aktif' ? 'dot-aktif' : 'dot-nonaktif' }}"></span>
-                            <span class="{{ strtolower($item['status']) === 'aktif' ? 'text-aktif' : 'text-nonaktif' }}">
-                                {{ ucfirst($item['status']) }}
+                            <span class="dot {{ $item->laba >= 0 ? 'dot-aktif' : 'dot-nonaktif' }}"></span>
+                            <span class="{{ $item->laba >= 0 ? 'text-aktif' : 'text-nonaktif' }}">
+                                {{ $item->laba >= 0 ? 'Aktif' : 'Nonaktif' }}
                             </span>
                         </span>
                     </td>
                     <td>
-                        <span class="badge badge-{{ \Illuminate\Support\Str::slug(strtolower($item['potensi'])) }}">
-                            {{ $item['potensi'] }}
+                        @php
+                            $potensi = $item->laba > 0 ? 'Tinggi' : ($item->laba == 0 ? 'Sedang' : 'Rendah');
+                        @endphp
+                        <span class="badge badge-{{ \Illuminate\Support\Str::slug(strtolower($potensi)) }}">
+                            {{ $potensi }}
                         </span>
                     </td>
                     <td>
@@ -578,12 +581,31 @@
                                     <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"/>
                                 </svg>
                             </button>
-                            <button class="btn-action btn-edit" title="Edit" onclick="openModal('modal-edit')">
+                            <button class="btn-action btn-edit" title="Edit" onclick="openEditModal(this)"
+                                data-id="{{ $item->id_umkm }}"
+                                data-nama_usaha="{{ $item->nama_usaha }}"
+                                data-id_jenis_usaha="{{ $item->id_jenis_usaha }}"
+                                data-id_marketplace="{{ $item->id_marketplace }}"
+                                data-id_daerah="{{ $item->id_daerah }}"
+                                data-tenaga_kerja_perempuan="{{ $item->tenaga_kerja_perempuan }}"
+                                data-tenaga_kerja_laki_laki="{{ $item->tenaga_kerja_laki_laki }}"
+                                data-total_tenaga_kerja="{{ $item->total_tenaga_kerja }}"
+                                data-aset="{{ $item->aset }}"
+                                data-omset="{{ $item->omset }}"
+                                data-kapasitas_produksi="{{ $item->kapasitas_produksi }}"
+                                data-tahun_berdiri="{{ $item->tahun_berdiri }}"
+                                data-jumlah_pelanggan="{{ $item->jumlah_pelanggan }}"
+                                data-laba="{{ $item->laba }}"
+                                data-biaya_karyawan="{{ $item->biaya_karyawan }}"
+                            >
                                 <svg viewBox="0 0 20 20" fill="currentColor">
                                     <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"/>
                                 </svg>
                             </button>
-                            <button class="btn-action btn-delete" title="Hapus" onclick="openModal('modal-hapus')">
+                            <button class="btn-action btn-delete" title="Hapus" onclick="openDeleteModal(this)"
+                                data-id="{{ $item->id_umkm }}"
+                                data-nama_usaha="{{ $item->nama_usaha }}"
+                            >
                                 <svg viewBox="0 0 20 20" fill="currentColor">
                                     <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"/>
                                 </svg>
@@ -647,37 +669,81 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label class="form-label">Kategori</label>
-                        <select class="form-control" name="kategori" required>
+                        <select class="form-control" name="id_jenis_usaha" required>
                             <option value="">Pilih kategori</option>
-                            <option>Kuliner</option>
-                            <option>Fashion</option>
-                            <option>Teknologi</option>
-                            <option>Kesehatan</option>
-                            <option>Pendidikan</option>
-                            <option>Jasa</option>
+                            @foreach($jenisUsaha as $jenis)
+                                <option value="{{ $jenis->id_jenis_usaha }}">{{ $jenis->nama_jenis_usaha }}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="form-group">
-                        <label class="form-label">Kota/Kabupaten</label>
-                        <input type="text" class="form-control" name="kota" placeholder="e.g. Surabaya" required />
+                        <label class="form-label">Marketplace</label>
+                        <select class="form-control" name="id_marketplace" required>
+                            <option value="">Pilih marketplace</option>
+                            @foreach($marketplaces as $market)
+                                <option value="{{ $market->id_marketplace }}">{{ $market->nama_marketplace }}</option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
-                        <label class="form-label">Modal Awal (Rp)</label>
-                        <input type="number" class="form-control" name="modal_awal" placeholder="5000000" required />
+                        <label class="form-label">Daerah</label>
+                        <select class="form-control" name="id_daerah" required>
+                            <option value="">Pilih daerah</option>
+                            @foreach($daerahs as $daerah)
+                                <option value="{{ $daerah->id_daerah }}">{{ $daerah->nama_daerah }}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="form-group">
-                        <label class="form-label">Status</label>
-                        <select class="form-control" name="status" required>
-                            <option value="aktif">Aktif</option>
-                            <option value="nonaktif">Non-Aktif</option>
-                        </select>
+                        <label class="form-label">Tahun Berdiri</label>
+                        <input type="number" class="form-control" name="tahun_berdiri" placeholder="2020" required />
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Tenaga Kerja Perempuan</label>
+                        <input type="number" class="form-control" name="tenaga_kerja_perempuan" placeholder="10" required />
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Tenaga Kerja Laki-laki</label>
+                        <input type="number" class="form-control" name="tenaga_kerja_laki_laki" placeholder="8" required />
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Total Tenaga Kerja</label>
+                        <input type="number" class="form-control" name="total_tenaga_kerja" placeholder="18" required />
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Jumlah Pelanggan</label>
+                        <input type="number" class="form-control" name="jumlah_pelanggan" placeholder="120" required />
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Aset (Rp)</label>
+                        <input type="number" class="form-control" name="aset" placeholder="5000000" required />
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Omset (Rp)</label>
+                        <input type="number" class="form-control" name="omset" placeholder="15000000" required />
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Kapasitas Produksi</label>
+                        <input type="number" class="form-control" name="kapasitas_produksi" placeholder="200" required />
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Laba (Rp)</label>
+                        <input type="number" class="form-control" name="laba" placeholder="3000000" required />
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="form-label">Deskripsi</label>
-                    <textarea class="form-control" name="deskripsi" rows="3" placeholder="Deskripsi singkat usaha..."></textarea>
+                    <label class="form-label">Biaya Karyawan (Rp)</label>
+                    <input type="number" class="form-control" name="biaya_karyawan" placeholder="1500000" required />
                 </div>
                 <div class="modal-footer" style="padding: 0; border: none; margin-top: 8px;">
                     <button type="button" class="btn-cancel" onclick="closeModal('modal-tambah')">Batal</button>
@@ -696,46 +762,91 @@
             <button class="modal-close" onclick="closeModal('modal-edit')">✕</button>
         </div>
         <div class="modal-body">
-            <form action="{{ route('kelola-data.update', 1) }}" method="POST">
+            <form id="form-edit" action="{{ route('kelola-data.update', 0) }}" method="POST">
                 @csrf
                 @method('PUT')
                 <div class="form-group">
                     <label class="form-label">Nama Usaha</label>
-                    <input type="text" class="form-control" name="nama_usaha" value="Warung Makan Bu Sari" required />
+                    <input type="text" class="form-control" name="nama_usaha" id="edit-nama_usaha" required />
                 </div>
                 <div class="form-row">
                     <div class="form-group">
                         <label class="form-label">Kategori</label>
-                        <select class="form-control" name="kategori" required>
-                            <option>Kuliner</option>
-                            <option>Fashion</option>
-                            <option>Teknologi</option>
-                            <option>Kesehatan</option>
-                            <option>Pendidikan</option>
-                            <option>Jasa</option>
+                        <select class="form-control" name="id_jenis_usaha" id="edit-id_jenis_usaha" required>
+                            <option value="">Pilih kategori</option>
+                            @foreach($jenisUsaha as $jenis)
+                                <option value="{{ $jenis->id_jenis_usaha }}">{{ $jenis->nama_jenis_usaha }}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="form-group">
-                        <label class="form-label">Kota/Kabupaten</label>
-                        <input type="text" class="form-control" name="kota" value="Surabaya" required />
+                        <label class="form-label">Marketplace</label>
+                        <select class="form-control" name="id_marketplace" id="edit-id_marketplace" required>
+                            <option value="">Pilih marketplace</option>
+                            @foreach($marketplaces as $market)
+                                <option value="{{ $market->id_marketplace }}">{{ $market->nama_marketplace }}</option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
-                        <label class="form-label">Modal Awal (Rp)</label>
-                        <input type="number" class="form-control" name="modal_awal" value="5000000" required />
+                        <label class="form-label">Daerah</label>
+                        <select class="form-control" name="id_daerah" id="edit-id_daerah" required>
+                            <option value="">Pilih daerah</option>
+                            @foreach($daerahs as $daerah)
+                                <option value="{{ $daerah->id_daerah }}">{{ $daerah->nama_daerah }}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="form-group">
-                        <label class="form-label">Status</label>
-                        <select class="form-control" name="status">
-                            <option value="aktif" selected>Aktif</option>
-                            <option value="nonaktif">Non-Aktif</option>
-                        </select>
+                        <label class="form-label">Tahun Berdiri</label>
+                        <input type="number" class="form-control" name="tahun_berdiri" id="edit-tahun_berdiri" required />
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Tenaga Kerja Perempuan</label>
+                        <input type="number" class="form-control" name="tenaga_kerja_perempuan" id="edit-tenaga_kerja_perempuan" required />
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Tenaga Kerja Laki-laki</label>
+                        <input type="number" class="form-control" name="tenaga_kerja_laki_laki" id="edit-tenaga_kerja_laki_laki" required />
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Total Tenaga Kerja</label>
+                        <input type="number" class="form-control" name="total_tenaga_kerja" id="edit-total_tenaga_kerja" required />
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Jumlah Pelanggan</label>
+                        <input type="number" class="form-control" name="jumlah_pelanggan" id="edit-jumlah_pelanggan" required />
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Aset (Rp)</label>
+                        <input type="number" class="form-control" name="aset" id="edit-aset" required />
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Omset (Rp)</label>
+                        <input type="number" class="form-control" name="omset" id="edit-omset" required />
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Kapasitas Produksi</label>
+                        <input type="number" class="form-control" name="kapasitas_produksi" id="edit-kapasitas_produksi" required />
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Laba (Rp)</label>
+                        <input type="number" class="form-control" name="laba" id="edit-laba" required />
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="form-label">Deskripsi</label>
-                    <textarea class="form-control" name="deskripsi" rows="3">Warung makan dengan menu masakan Jawa Timur.</textarea>
+                    <label class="form-label">Biaya Karyawan (Rp)</label>
+                    <input type="number" class="form-control" name="biaya_karyawan" id="edit-biaya_karyawan" required />
                 </div>
                 <div class="modal-footer" style="padding: 0; border: none; margin-top: 8px;">
                     <button type="button" class="btn-cancel" onclick="closeModal('modal-edit')">Batal</button>
@@ -760,7 +871,7 @@
         </div>
         <div class="delete-footer">
             <button class="btn-cancel" onclick="closeModal('modal-hapus')">Batal</button>
-            <form action="{{ route('kelola-data.destroy', 1) }}" method="POST" style="display:inline;">
+            <form id="form-delete" action="{{ route('kelola-data.destroy', 0) }}" method="POST" style="display:inline;">
                 @csrf
                 @method('DELETE')
                 <button type="submit" class="btn-hapus">Ya, Hapus</button>
@@ -797,5 +908,37 @@
             });
         }
     });
+
+    function openEditModal(button) {
+        const id = button.dataset.id;
+        const form = document.getElementById('form-edit');
+        form.action = form.action.replace(/\/\d+$/, '/' + id);
+
+        document.getElementById('edit-nama_usaha').value = button.dataset.nama_usaha;
+        document.getElementById('edit-id_jenis_usaha').value = button.dataset.id_jenis_usaha;
+        document.getElementById('edit-id_marketplace').value = button.dataset.id_marketplace;
+        document.getElementById('edit-id_daerah').value = button.dataset.id_daerah;
+        document.getElementById('edit-tahun_berdiri').value = button.dataset.tahun_berdiri;
+        document.getElementById('edit-tenaga_kerja_perempuan').value = button.dataset.tenaga_kerja_perempuan;
+        document.getElementById('edit-tenaga_kerja_laki_laki').value = button.dataset.tenaga_kerja_laki_laki;
+        document.getElementById('edit-total_tenaga_kerja').value = button.dataset.total_tenaga_kerja;
+        document.getElementById('edit-jumlah_pelanggan').value = button.dataset.jumlah_pelanggan;
+        document.getElementById('edit-aset').value = button.dataset.aset;
+        document.getElementById('edit-omset').value = button.dataset.omset;
+        document.getElementById('edit-kapasitas_produksi').value = button.dataset.kapasitas_produksi;
+        document.getElementById('edit-laba').value = button.dataset.laba;
+        document.getElementById('edit-biaya_karyawan').value = button.dataset.biaya_karyawan;
+
+        openModal('modal-edit');
+    }
+
+    function openDeleteModal(button) {
+        const id = button.dataset.id;
+        const name = button.dataset.nama_usaha;
+        const form = document.getElementById('form-delete');
+        form.action = form.action.replace(/\/\d+$/, '/' + id);
+        document.querySelector('#modal-hapus .delete-desc strong').textContent = name;
+        openModal('modal-hapus');
+    }
 </script>
 @endpush

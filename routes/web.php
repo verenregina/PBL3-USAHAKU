@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RekomendasiController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\KelolaDataController;
 use App\Models\JenisUsaha;
 
 /*
@@ -50,15 +52,7 @@ Route::middleware('auth')->group(function () {
     |--------------------------------------------------------------------------
     */
 
-    Route::get('/admin', function () {
-
-        if (auth()->user()->role != 'admin') {
-            abort(403);
-        }
-
-        return view('admin.dashboard');
-
-    })->name('admin');
+    Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
 
 
     /*
@@ -67,15 +61,8 @@ Route::middleware('auth')->group(function () {
     |--------------------------------------------------------------------------
     */
 
-    Route::get('/admin/kelola-data', function () {
-
-        if (auth()->user()->role != 'admin') {
-            abort(403);
-        }
-
-        return view('admin.kelola-data');
-
-    })->name('admin.kelola-data');
+    Route::get('/admin/kelola-data', [KelolaDataController::class, 'index'])
+        ->name('admin.kelola-data');
 
 
     /*
@@ -84,42 +71,15 @@ Route::middleware('auth')->group(function () {
     |--------------------------------------------------------------------------
     */
 
-    Route::post('/admin/kelola-data', function () {
-
-        if (auth()->user()->role != 'admin') {
-            abort(403);
-        }
-
-        return redirect()
-            ->route('admin.kelola-data')
-            ->with('success', 'Data berhasil ditambahkan');
-
-    })->name('kelola-data.store');
+    Route::post('/admin/kelola-data', [KelolaDataController::class, 'store'])
+        ->name('kelola-data.store');
 
 
-    Route::put('/admin/kelola-data/{id}', function ($id) {
-
-        if (auth()->user()->role != 'admin') {
-            abort(403);
-        }
-
-        return redirect()
-            ->route('admin.kelola-data')
-            ->with('success', 'Data berhasil diupdate');
-
-    })->name('kelola-data.update');
+    Route::put('/admin/kelola-data/{id}', [KelolaDataController::class, 'update'])
+        ->name('kelola-data.update');
 
 
-    Route::delete('/admin/kelola-data/{id}', function ($id) {
-
-        if (auth()->user()->role != 'admin') {
-            abort(403);
-        }
-
-        return redirect()
-            ->route('admin.kelola-data')
-            ->with('success', 'Data berhasil dihapus');
-
-    })->name('kelola-data.destroy');
+    Route::delete('/admin/kelola-data/{id}', [KelolaDataController::class, 'destroy'])
+        ->name('kelola-data.destroy');
 
 });
