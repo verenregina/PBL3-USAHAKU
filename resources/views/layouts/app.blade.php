@@ -130,12 +130,28 @@
 
                 <div class="form-group">
                     <label>Kata Sandi</label>
-                    <input type="password" name="password" placeholder="Masukkan Kata Sandi" required>
+
+                    <div class="password-wrapper">
+                        <input type="password" class="password-input" name="password" placeholder="Masukkan Kata Sandi"
+                            required>
+
+                        <i class="fa-solid fa-eye-slash toggle-password"></i>
+                    </div>
+
+                    <small class="password-rule">
+                        Minimal 8 karakter, kombinasi huruf dan angka.
+                    </small>
                 </div>
 
                 <div class="form-group">
                     <label>Konfirmasi Kata Sandi</label>
-                    <input type="password" name="password_confirmation" placeholder="Konfirmasi Kata Sandi" required>
+
+                    <div class="password-wrapper">
+                        <input type="password" class="password-input" name="password_confirmation"
+                            placeholder="Konfirmasi Kata Sandi" required>
+
+                        <i class="fa-solid fa-eye-slash toggle-password"></i>
+                    </div>
                 </div>
 
                 <button type="submit" class="btn-primary">Daftar</button>

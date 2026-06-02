@@ -28,10 +28,18 @@
             </li>
 
             <li>
-                <a href="{{ route('rekomendasi-form') }}"
-                    class="{{ request()->routeIs('rekomendasi-form') ? 'active' : '' }}">
-                    Rekomendasi
-                </a>
+                @auth
+
+                    <a href="{{ route('rekomendasi-form') }}"
+                        class="{{ request()->routeIs('rekomendasi-form') ? 'active' : '' }}">
+                        Rekomendasi
+                    </a>
+                @else
+                    <a href="{{ route('home') }}#rekomendasi">
+                        Rekomendasi
+                    </a>
+
+                @endauth
             </li>
 
             <li>

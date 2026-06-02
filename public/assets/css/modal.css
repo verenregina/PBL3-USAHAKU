@@ -44,6 +44,47 @@
     cursor: pointer;
 }
 
+.auth-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.auth-logo img {
+    width: 95px;
+    height: auto;
+}
+
+.auth-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.auth-logo span {
+    display: block;
+    margin-top: 8px;
+    font-size: 20px;
+    font-weight: 700;
+    color: #F97316;
+}
+
+.auth-logo img {
+    width: 110px;
+    height: auto;
+}
+
+.auth-title {
+    text-align: center;
+    margin-top: 5px;
+    margin-bottom: 20px;
+    font-size: 24px; /* ukuran font */
+    font-weight: 700;
+    color: #333;
+}
+
 /* Two-column layout for auth forms */
 .auth-card form {
     display: grid;
