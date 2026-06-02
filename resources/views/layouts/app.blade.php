@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Sistem Rekomendasi Potensi Usaha Berdasarkan Modal dan Jenis Usaha Di Jawa Timur</title>
+    <title>Sistem Rekomendasi Potensi Usaha Di Jawa Timur</title>
 
     <!-- FONT -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -36,101 +36,250 @@
     @include('layouts.navbar')
 
     @yield('content')
+
+    @include('layouts.footer')
+
     <!-- LOGIN MODAL -->
-    <div id="loginModal" class="modal">
+    <div id="loginModal" class="modal {{ isset($active) && $active === 'login' ? 'show' : '' }}">
         <div class="modal-overlay"></div>
 
         <div class="modal-box">
-            <!-- CLOSE -->
             <button class="modal-close" id="closeModal">&times;</button>
 
-            <!-- LOGO -->
             <div class="auth-logo">
-                <img src="{{ asset('assets/images/logo.png') }}">
+                <img src="{{ asset('assets/images/logo.png') }}" alt="logo">
             </div>
 
             <h3 class="auth-title">Masuk ke Akun</h3>
 
-            <!-- ERROR -->
-            @if ($errors->any())
+            @if (session('success') && isset($active) && $active === 'login')
+                <div class="alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
+
+            @if (isset($active) && $active === 'login' && $errors->any())
                 <div class="alert-error">
                     {{ $errors->first() }}
                 </div>
             @endif
 
-            <!-- FORM -->
             <form method="POST" action="{{ route('login') }}">
                 @csrf
 
-                <!-- EMAIL -->
                 <div class="form-group">
                     <label>Email</label>
                     <input type="email" name="email" placeholder="Masukkan Email" value="{{ old('email') }}"
-                        class="@error('email') input-error @enderror">
+                        required>
                 </div>
 
-                <!-- PASSWORD -->
                 <div class="form-group">
                     <label>Kata Sandi</label>
                     <div class="password-wrapper">
-                        <input type="password" id="password" name="password" placeholder="Masukkan Kata Sandi"
-                            class="@error('password') input-error @enderror">
-
-                        <i class="fa-solid fa-eye-slash" id="togglePassword"></i>
+                        <input type="password" class="password-input" name="password" placeholder="Masukkan Kata Sandi"
+                            required>
+                        <i class="fa-solid fa-eye-slash toggle-password"></i>
                     </div>
                 </div>
 
-                <!-- FORGOT -->
                 <div class="forgot">
                     <a href="#">Lupa kata sandi?</a>
                 </div>
 
-                <!-- BUTTON -->
                 <button type="submit" class="btn-primary">Masuk</button>
 
                 <p class="text-center">Belum punya akun?</p>
-
-                <a href="{{ route('register') }}" class="btn-secondary">Daftar</a>
+                <a href="#" class="btn-secondary openRegister">Daftar</a>
             </form>
         </div>
     </div>
 
-    @include('layouts.footer')
+    <!-- REGISTER MODAL -->
+    <div id="registerModal" class="modal {{ isset($active) && $active === 'register' ? 'show' : '' }}">
+        <div class="modal-overlay register-overlay"></div>
+
+        <div class="modal-box register-modal">
+            <button class="modal-close" id="closeRegister">&times;</button>
+
+            <div class="auth-logo">
+                <img src="{{ asset('assets/images/logo.png') }}" alt="logo">
+            </div>
+
+            <h3 class="auth-title">Daftar Akun</h3>
+
+            @if (isset($active) && $active === 'register' && $errors->any())
+                <div class="alert-error">
+                    {{ $errors->first() }}
+                </div>
+            @endif
+
+            <form method="POST" action="{{ route('register') }}">
+                @csrf
+
+                <div class="form-group">
+                    <label>Nama Lengkap</label>
+                    <input type="text" name="name" placeholder="Masukkan Nama Lengkap"
+                        value="{{ old('name') }}" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" name="email" placeholder="Masukkan Email" value="{{ old('email') }}"
+                        required>
+                </div>
+
+                <div class="form-group">
+                    <label>Kata Sandi</label>
+                    <input type="password" name="password" placeholder="Masukkan Kata Sandi" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Konfirmasi Kata Sandi</label>
+                    <input type="password" name="password_confirmation" placeholder="Konfirmasi Kata Sandi" required>
+                </div>
+
+                <button type="submit" class="btn-primary">Daftar</button>
+
+                <p class="text-center">Sudah punya akun?</p>
+                <a href="#" class="btn-secondary openLogin">Masuk</a>
+            </form>
+        </div>
+    </div>
 
     <!-- BOOTSTRAP JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
         const modal = document.getElementById("loginModal");
-        const openBtn = document.getElementById("openModal");
+        const openBtns = document.querySelectorAll(".openModal");
         const closeBtn = document.getElementById("closeModal");
-        const overlay = document.querySelector(".modal-overlay");
+        const overlays = document.querySelectorAll(".modal-overlay");
 
-        // OPEN (FIX UTAMA)
-        openBtn.onclick = (e) => {
-            e.preventDefault();
-            modal.classList.add("show");
-        };
+        // OPEN MODAL
+        openBtns.forEach(btn => {
+            btn.addEventListener("click", function(e) {
+                if (!modal) return;
+                e.preventDefault();
+                modal.classList.add("show");
+            });
+        });
 
-        // CLOSE
-        closeBtn.onclick = () => modal.classList.remove("show");
-        overlay.onclick = () => modal.classList.remove("show");
+        // CLOSE MODAL
+        if (modal && closeBtn) {
+            closeBtn.onclick = () => modal.classList.remove("show");
+        }
 
-        // TOGGLE PASSWORD
-        const toggle = document.getElementById("togglePassword");
-        const password = document.getElementById("password");
+        overlays.forEach(overlay => {
+            overlay.addEventListener('click', function() {
+                if (modal) modal.classList.remove('show');
+                const registerModal = document.getElementById('registerModal');
+                if (registerModal) registerModal.classList.remove('show');
+            });
+        });
 
-        toggle.onclick = () => {
-            if (password.type === "password") {
-                password.type = "text";
-                toggle.classList.replace("fa-eye-slash", "fa-eye");
-            } else {
-                password.type = "password";
-                toggle.classList.replace("fa-eye", "fa-eye-slash");
+        // TOGGLE PASSWORD (support multiple instances)
+        document.querySelectorAll('.toggle-password').forEach(toggle => {
+            toggle.addEventListener('click', function() {
+                const wrapper = this.closest('.password-wrapper');
+                const input = wrapper ? wrapper.querySelector('.password-input') : document.querySelector(
+                    'input[name="password"]');
+                if (!input) return;
+
+                if (input.type === 'password') {
+                    input.type = 'text';
+                    this.classList.replace('fa-eye-slash', 'fa-eye');
+                } else {
+                    input.type = 'password';
+                    this.classList.replace('fa-eye', 'fa-eye-slash');
+                }
+            });
+        });
+    </script>
+    <script>
+        const registerModal = document.getElementById("registerModal");
+
+        // buka register
+        document.querySelectorAll(".openRegister").forEach(btn => {
+            btn.addEventListener("click", function(e) {
+                if (!registerModal || !modal) return;
+                e.preventDefault();
+
+                modal.classList.remove("show");
+                registerModal.classList.add("show");
+            });
+        });
+
+        // kembali ke login
+        document.querySelectorAll(".openLogin").forEach(btn => {
+            btn.addEventListener("click", function(e) {
+                if (!registerModal || !modal) return;
+                e.preventDefault();
+
+                registerModal.classList.remove("show");
+                modal.classList.add("show");
+            });
+        });
+
+        const closeRegister = document.getElementById("closeRegister");
+        if (registerModal && closeRegister) {
+            closeRegister.onclick = () => registerModal.classList.remove("show");
+        }
+    </script>
+    <script>
+        const navLinks = document.querySelectorAll('.nav-menu a');
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+
+                navLinks.forEach(item => {
+                    item.classList.remove('active');
+                });
+
+                this.classList.add('active');
+            });
+        });
+    </script>
+    <script>
+        const profileIcon = document.querySelector('.profile-icon');
+        const profileDropdown = document.querySelector('.profile-dropdown');
+
+        if (profileIcon) {
+
+            profileIcon.addEventListener('click', function(e) {
+                e.stopPropagation();
+
+                profileDropdown.classList.toggle('show');
+            });
+
+            document.addEventListener('click', function() {
+                profileDropdown.classList.remove('show');
+            });
+
+        }
+    </script>
+    <script>
+        let lastScroll = 0;
+        const navbar = document.querySelector('.navbar');
+
+        window.addEventListener('scroll', () => {
+
+            let currentScroll = window.pageYOffset;
+
+            // scroll ke bawah
+            if (currentScroll > lastScroll) {
+                navbar.classList.add('hide');
             }
-        };
+
+            // scroll ke atas
+            else {
+                navbar.classList.remove('hide');
+            }
+
+            lastScroll = currentScroll;
+        });
     </script>
 
+</body>
 </body>
 
 </html>

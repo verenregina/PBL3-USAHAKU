@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\RekomendasiController;
+use App\Models\JenisUsaha;
 
 /*
 |--------------------------------------------------------------------------
@@ -11,7 +13,7 @@ use App\Http\Controllers\AuthController;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
 
 /*
 |--------------------------------------------------------------------------
@@ -28,9 +30,8 @@ Route::get('/register', [AuthController::class, 'showRegister'])->name('register
 Route::post('/register', [AuthController::class, 'register']);
 
 // FORM REKOMENDASI
-Route::get('/rekomendasi', function () {
-    return view('pages.rekomendasi');
-});
+Route::get('/rekomendasi-form', [RekomendasiController::class, 'showForm'])
+    ->name('rekomendasi-form');
 
 // LOGOUT
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');

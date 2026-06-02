@@ -2,15 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\JenisUsaha;
 use Illuminate\Http\Request;
 
-class RecommendationController extends Controller
+class RekomendasiController extends Controller
 {
     // Tampilkan form input rekomendasi
-    public function showForm()
-    {
-        return view('recommendation.form');
-    }
+public function showForm()
+{
+    $jenisUsaha = JenisUsaha::all();
+
+    return view('pages.rekomendasi-form', compact('jenisUsaha'));
+}
 
     // Proses rekomendasi dan tampilkan hasil
     public function processRecommendation(Request $request)

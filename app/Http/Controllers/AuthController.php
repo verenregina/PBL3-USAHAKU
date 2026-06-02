@@ -12,35 +12,37 @@ class AuthController extends Controller
     // TAMPILKAN LOGIN
     public function showLogin()
     {
-        return view('auth.login');
+        return view('auth.auth', ['active' => 'login']);
     }
 
     // PROSES LOGIN
-    public function login(Request $request)
-    {
-        $data = $request->validate([
-            'email' => 'required|email',
-            'password' => 'required'
-        ]);
-    
-        if (Auth::attempt($data)) {
-            $request->session()->regenerate();
-            if (Auth::user()->role == 'admin') {
-                return redirect('/admin'); // admin
-            } else {
-                return redirect('/'); // user
-            }
+public function login(Request $request)
+{
+    $data = $request->validate([
+        'email' => 'required|email',
+        'password' => 'required'
+    ]);
+
+    if (Auth::attempt($data)) {
+
+        $request->session()->regenerate();
+
+        if (Auth::user()->role == 'admin') {
+            return redirect('/admin');
         }
-    
-        return back()->withErrors([
-            'email' => 'Email atau password salah'
-        ]);
+
+        return redirect()->route('rekomendasi-form');
     }
+
+    return back()->withErrors([
+        'email' => 'Email atau password salah'
+    ]);
+}
 
     // TAMPILKAN REGISTER
     public function showRegister()
     {
-        return view('auth.register');
+        return view('auth.auth', ['active' => 'register']);
     }
 
     // PROSES REGISTER
@@ -51,14 +53,14 @@ class AuthController extends Controller
             'email' => 'required|email|unique:users',
             'password' => 'required|min:6'
         ]);
-    
+
         User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'role' => 'user'
         ]);
-    
+
         return redirect('/login')->with('success', 'Register berhasil');
     }
 

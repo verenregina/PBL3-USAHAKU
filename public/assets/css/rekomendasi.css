@@ -6,6 +6,101 @@ html{
     background: #f3f3f3;
     min-height: 100vh;
 }
+.welcome-user{
+    max-width:1200px;
+    margin:0 auto 30px;
+
+    background:#fff7ed;
+    border-left:5px solid #F97316;
+
+    padding:20px 25px;
+    border-radius:16px;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.05);
+}
+
+.welcome-user h4{
+    margin:0 0 8px;
+    color:#F97316;
+    font-size:22px;
+    font-weight:700;
+}
+
+.welcome-user p{
+    margin:0;
+    color:#555;
+    line-height:1.6;
+}
+
+.profile-menu{
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.user-name{
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.profile-icon{
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 0;
+}
+
+.profile-icon i{
+    color: white;
+    font-size: 32px;
+    transition: .3s;
+}
+
+.profile-icon:hover i{
+    color: #F97316;
+}
+
+.profile-dropdown{
+    position: absolute;
+    top: 45px;
+    right: 0;
+
+    min-width: 150px;
+
+    background: white;
+    border-radius: 10px;
+
+    box-shadow: 0 8px 20px rgba(0,0,0,.12);
+
+    display: none;
+    z-index: 999;
+}
+
+.profile-dropdown button{
+    width: 100%;
+
+    border: none;
+    background: transparent;
+
+    text-align: left;
+
+    padding: 12px 15px;
+
+    cursor: pointer;
+
+    font-size: 14px;
+}
+
+.profile-dropdown button:hover{
+    background: #fff7ed;
+    color: #F97316;
+}
+
+.profile-dropdown.show{
+    display: block;
+}
 
 /* ================= HERO ================= */
 
