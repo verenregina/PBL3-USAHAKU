@@ -12,7 +12,7 @@ return new class extends Migration
 
             $table->id();
 
-            $table->foreignId('analisis_usaha_id')->constrained()->onDelete('cascade');
+            $table->foreignId('analisis_usaha_id')->constrained('analisis_usaha')->onDelete('cascade');
 
             $table->decimal('roa', 8, 2);
             $table->decimal('margin_laba', 8, 2);

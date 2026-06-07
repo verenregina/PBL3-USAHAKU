@@ -43,4 +43,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function analisisUsaha()
+    {
+        return $this->hasMany(AnalisisUsaha::class, 'user_id');
+    }
 }

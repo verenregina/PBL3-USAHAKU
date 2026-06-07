@@ -27,8 +27,9 @@ public function login(Request $request)
 
         $request->session()->regenerate();
 
-        if (Auth::user()->role == 'admin') {
-            return redirect('/admin');
+        $role = strtolower(trim(Auth::user()->role ?? ''));
+        if ($role === 'admin') {
+            return redirect()->route('admin.dashboard');
         }
 
         return redirect()->route('rekomendasi-form');

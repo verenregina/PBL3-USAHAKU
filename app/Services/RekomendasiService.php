@@ -21,6 +21,7 @@ class RekomendasiService
     {
         // 1. SIMPAN INPUT
         $input = AnalisisUsaha::create([
+            'user_id' => auth()->id(),
             'nama_usaha' => $data['nama_usaha'],
             'jenis_usaha' => $data['jenis_usaha'],
             'kabupaten' => $data['kabupaten'],
