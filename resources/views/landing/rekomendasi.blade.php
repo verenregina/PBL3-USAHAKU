@@ -19,10 +19,13 @@
                             <option value="{{ $item->nama_jenis_usaha }}">{{ $item->nama_jenis_usaha }}</option>
                         @endforeach
                     @else
-                        <option>Kuliner</option>
+                        <option>Kesehatan</option>
+                        <option>Perdagangan</option>
                         <option>Fashion</option>
-                        <option>Kerajinan</option>
+                        <option>Pendidikan</option>
                         <option>Jasa</option>
+                        <option>Makanan & Minuman</option>
+                        <option>Perusahaan</option>
                     @endif
                 </select>
             </div>

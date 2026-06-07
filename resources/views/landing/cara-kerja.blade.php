@@ -24,7 +24,7 @@
 
             <div class="step-text">
                 <h3>Input Data Usaha</h3>
-                <p>Masukkan modal dan jenis usaha yang ingin dianalisis.</p>
+                <p>Masukkan data usaha yang ingin dianalisis.</p>
             </div>
         </div>
 
