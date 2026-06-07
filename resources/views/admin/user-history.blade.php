@@ -6,7 +6,7 @@
 
 @section('content')
     <div class="section-header">
-        <p class="section-label">Riwayat Pengguna</p>
+        <p class="section-label">Data Pengguna</p>
         <h2 class="section-title">Semua akun pengguna</h2>
     </div>
 

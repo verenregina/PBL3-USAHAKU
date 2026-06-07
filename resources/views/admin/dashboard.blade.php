@@ -200,14 +200,14 @@
                 <button class="filter-btn inactive" onclick="setFilter(this)">Bulanan</button>
                 <button class="filter-btn inactive" onclick="setFilter(this)">Tahunan</button>
             </div>
-        </div>
-        {{-- Ganti dengan <canvas id="usageChart"></canvas> jika pakai Chart.js --}}
-        <div class="chart-placeholder">Placeholder grafik</div>
+        </div>  
+<canvas id="usageChart" style="height:240px !important;"></canvas>
     </div>
 
 @endsection
 
 @push('scripts')
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
     function setFilter(btn) {
         document.querySelectorAll('.filter-btn').forEach(b => {
@@ -217,5 +217,49 @@
         btn.classList.remove('inactive');
         btn.classList.add('active');
     }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const labels = @json($chartLabels ?? []);
+        const values = @json($chartData ?? []);
+
+        const ctx = document.getElementById('usageChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Jumlah Analisis per Hari',
+                    data: values,
+                    backgroundColor: 'rgba(249, 115, 22, 0.15)',
+                    borderColor: '#f97316',
+                    borderWidth: 2,
+                    tension: 0.35,
+                    fill: true,
+                    pointRadius: 4,
+                    pointBackgroundColor: '#f97316',
+                    pointHoverRadius: 6,
+                }]
+            },
+            options: {
+                maintainAspectRatio: true,
+aspectRatio: 2.5,   
+                plugins: {
+                    legend: { display: false },
+                    tooltip: { mode: 'index', intersect: false }
+                },
+                scales: {
+                    x: {
+                        title: { display: true, text: 'Tanggal' },
+                        grid: { display: false }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        title: { display: true, text: 'Jumlah Analisis' },
+                        ticks: { precision: 0 }
+                    }
+                }
+            }
+        });
+    });
 </script>
 @endpush
