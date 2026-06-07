@@ -66,8 +66,13 @@ Route::middleware('auth')->group(function () {
     |--------------------------------------------------------------------------
     */
 
-    Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+    Route::get('/admin', function () {
+        return redirect()->route('admin.dashboard');
+    });
 
+    Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+    Route::get('/admin/history', [DashboardController::class, 'history'])->name('admin.history');
+    Route::get('/admin/riwayat-pengguna', [DashboardController::class, 'userHistory'])->name('admin.riwayat-pengguna');
 
     /*
     |--------------------------------------------------------------------------

@@ -407,7 +407,7 @@
             {{-- RIWAYAT --}}
             <p class="menu-section">Riwayat</p>
 
-            <a href="{{ route('admin.dashboard') }}"
+            <a href="{{ route('admin.history') }}"
                class="menu-item {{ request()->routeIs('admin.history') ? 'active' : '' }}">
 
                 <svg viewBox="0 0 20 20" fill="currentColor">
@@ -417,7 +417,7 @@
                 <span>History</span>
             </a>
 
-            <a href="{{ route('admin.dashboard') }}"
+            <a href="{{ route('admin.riwayat-pengguna') }}"
                class="menu-item {{ request()->routeIs('admin.riwayat-pengguna') ? 'active' : '' }}">
 
                 <svg viewBox="0 0 20 20" fill="currentColor">
