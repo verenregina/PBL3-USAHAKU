@@ -296,6 +296,5 @@
     </script>
 
 </body>
-</body>
 
 </html>

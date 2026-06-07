@@ -5,6 +5,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RekomendasiController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KelolaDataController;
+use App\Http\Controllers\JenisUsahaController;
+use App\Http\Controllers\WilayahController;
 use App\Models\JenisUsaha;
 
 /*
@@ -34,9 +36,21 @@ Route::post('/register', [AuthController::class, 'register']);
 // FORM REKOMENDASI
 Route::get('/rekomendasi-form', [RekomendasiController::class, 'showForm'])
     ->name('rekomendasi-form');
+Route::post('/rekomendasi/proses', [RekomendasiController::class, 'processRecommendation'])
+    ->name('rekomendasi.proses');
+Route::get('/rekomendasi/hasil/{id}', [RekomendasiController::class, 'hasil'])
+    ->name('rekomendasi.hasil');
 
 // LOGOUT
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+// Jenis Usaha
+Route::get('/jenis-usaha', [JenisUsahaController::class, 'index']);
+Route::get('/jenis-usaha/{id}', [JenisUsahaController::class, 'show']);
+
+// Wilayah
+Route::get('/wilayah/kabupaten', [WilayahController::class, 'kabupaten']);
+// Route::get('/wilayah/kecamatan/{id}', [WilayahController::class, 'kecamatan']);
 
 /*
 |--------------------------------------------------------------------------

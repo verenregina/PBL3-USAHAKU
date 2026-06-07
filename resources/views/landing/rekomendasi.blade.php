@@ -1,7 +1,7 @@
 <div class="form-box">
     <h2>Mulai Analisis Usaha</h2>
 
-        <form action="{{ auth()->check() ? route('rekomendasi') : route('login') }}" method="GET">
+        <form action="{{ auth()->check() ? route('rekomendasi-form') : route('login') }}" method="GET">
 
             <!-- MODAL -->
             <div class="form-group">

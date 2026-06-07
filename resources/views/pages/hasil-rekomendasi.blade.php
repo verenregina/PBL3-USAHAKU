@@ -1,161 +1,127 @@
 @extends('layouts.app')
 
-@push('styles')
-    <link rel="stylesheet" href="{{ asset('assets/css/landing.css') }}">
-@endpush
-
 @section('content')
-    <!-- HERO SECTION -->
-    <section class="hero">
-        <div class="container hero-wrapper">
-            <div class="hero-text">
-                <h1>
-                    Sistem Rekomendasi Usaha Berbasis Data untuk Analisis Potensi Usaha
-                </h1>
-                <p>
-                    Temukan apakah modal dan jenis usaha yang Anda minati memiliki potensi berdasarkan data
-                    historis dari dataset usaha di <span>Jawa Timur</span>.
-                </p>
 
-                <a href="{{ auth()->check() ? route('recommendation.form') : route('login') }}" class="btn-primary">
-                    Mulai Analisis Sekarang
-                </a>
-            </div>
+<link rel="stylesheet" href="{{ asset('assets/css/rekomendasi.css') }}">
 
-            <div class="hero-image">
-                <img src="{{ asset('assets/images/hero.png') }}" alt="hero">
-            </div>
+<div class="dashboard-container">
+
+    {{-- HEADER --}}
+    <div class="dashboard-header">
+        <h2>Hasil Analisis UMKM</h2>
+        <p>Berikut hasil evaluasi dan rekomendasi berdasarkan sistem SAW + Forward Chaining</p>
+    </div>
+
+    {{-- DATA UMKM (DARI RELASI INPUT) --}}
+    <div class="card-section">
+
+        <div class="card">
+            <h4>Nama Usaha</h4>
+            <p>{{ $hasil->analisisUsaha->nama_usaha }}</p>
         </div>
-    </section>
 
-    <!-- TENTANG -->
-    <section id="tentang" class="section">
-        <div class="container">
-            <h2>Tentang Sistem</h2>
-            <p>
-                Sistem rekomendasi ini dibuat untuk membantu masyarakat menentukan
-                usaha yang sesuai berdasarkan data riil UMKM di Jawa Timur.
-            </p>
+        <div class="card">
+            <h4>Jenis Usaha</h4>
+            <p>{{ $hasil->analisisUsaha->jenis_usaha }}</p>
         </div>
-    </section>
 
-    <!-- MANFAAT -->
-    <section class="features">
-        <div class="container">
-            <h2>Kenapa Sistem Ini Berbeda?</h2>
-
-            <div class="feature-list">
-                <div class="feature-card">
-                    <i class="fa-solid fa-bullseye"></i>
-                    <h3>Berbasis Data Historis</h3>
-                    <p>Menggunakan dataset usaha untuk analisis yang akurat.</p>
-                </div>
-
-                <div class="feature-card">
-                    <i class="fa-solid fa-chart-column"></i>
-                    <h3>Analisis Potensi</h3>
-                    <p>Menilai kelayakan dan potensi usaha.</p>
-                </div>
-
-                <div class="feature-card">
-                    <i class="fa-solid fa-location-dot"></i>
-                    <h3>Spesifik Jawa Timur</h3>
-                    <p>Disesuaikan dengan kondisi wilayah.</p>
-                </div>
-
-                <div class="feature-card">
-                    <i class="fa-solid fa-bolt"></i>
-                    <h3>Objektif & Terukur</h3>
-                    <p>Berdasarkan data nyata, bukan asumsi.</p>
-                </div>
-            </div>
+        <div class="card">
+            <h4>Daerah</h4>
+            <p>{{ $hasil->analisisUsaha->kabupaten }}</p>
         </div>
-    </section>
 
-    <!-- CARA KERJA -->
-    <section id="cara-kerja" class="section">
-        <div class="container">
-            <h2>Bagaimana Cara Kerja Sistem?</h2>
-            <div class="steps">
+    </div>
 
-                <div class="step">
-                    <span class="step-number">1</span>
+    {{-- INDICATOR SECTION --}}
+    <h3 class="section-title">Indikator Analisis</h3>
 
-                    <div class="step-icon">
-                        <i class="fa-solid fa-right-to-bracket"></i>
-                    </div>
+    <div class="indicator-grid">
 
-                    <div class="step-text">
-                        <h3>Login</h3>
-                        <p>Buat akun menggunakan email dan password.</p>
-                    </div>
-                </div>
-
-                <div class="step">
-                    <span class="step-number">2</span>
-
-                    <div class="step-icon">
-                        <i class="fa-solid fa-clipboard-list"></i>
-                    </div>
-
-                    <div class="step-text">
-                        <h3>Input Data Usaha</h3>
-                        <p>Masukkan modal dan jenis usaha yang ingin dianalisis.</p>
-                    </div>
-                </div>
-
-                <div class="step">
-                    <span class="step-number">3</span>
-
-                    <div class="step-icon">
-                        <i class="fa-solid fa-database"></i>
-                    </div>
-
-                    <div class="step-text">
-                        <h3>Analisis Data</h3>
-                        <p>Sistem akan mencocokkan dengan data historis.</p>
-                    </div>
-                </div>
-
-                <div class="step">
-                    <span class="step-number">4</span>
-
-                    <div class="step-icon">
-                        <i class="fa-solid fa-chart-column"></i>
-                    </div>
-
-                    <div class="step-text">
-                        <h3>Hasil Rekomendasi</h3>
-                        <p>Dapatkan analisis potensi usaha beserta insight.</p>
-                    </div>
-                </div>
-
-            </div>
-    </section>
-    <!-- REKOMENDASI -->
-    <section id="rekomendasi" class="section">
-        <div class="container">
-            <h2>Mulai Rekomendasi</h2>
-
-            <div class="form-box">
-                <p style="margin-bottom: 20px; text-align: center; color: #666;">
-                    @if(auth()->check())
-                        Silakan isi form di bawah untuk mendapatkan rekomendasi usaha
-                    @else
-                        Anda harus login terlebih dahulu untuk menggunakan fitur rekomendasi
-                    @endif
-                </p>
-
-                @if(auth()->check())
-                    <a href="{{ route('rekomendasi.form') }}" class="btn-primary" style="display: inline-block; width: 100%; text-align: center; padding: 12px; text-decoration: none; border-radius: 8px;">
-                        Buka Form Rekomendasi
-                    </a>
-                @else
-                    <a href="{{ route('login') }}" class="btn-primary" style="display: inline-block; width: 100%; text-align: center; padding: 12px; text-decoration: none; border-radius: 8px;">
-                        Login Terlebih Dahulu
-                    </a>
-                @endif
-            </div>
+        <div class="indicator-card">
+            <h4>ROA</h4>
+            <h2>{{ number_format($hasil->roa, 2) }}</h2>
         </div>
-    </section>
+
+        <div class="indicator-card">
+            <h4>Margin Laba</h4>
+            <h2>{{ number_format($hasil->margin_laba, 2) }}</h2>
+        </div>
+
+        <div class="indicator-card">
+            <h4>Utilisasi Produksi</h4>
+            <h2>{{ number_format($hasil->utilisasi_produksi, 2) }}</h2>
+        </div>
+
+    </div>
+
+    {{-- RESULT --}}
+    <div class="result-box">
+
+        <h3>Hasil Keputusan Sistem</h3>
+
+        <div class="result-item">
+            <span>Kategori Potensi:</span>
+            <h2 class="badge {{ strtolower(str_replace(' ', '-', $hasil->kategori_potensi)) }}">
+                {{ $hasil->kategori_potensi }}
+            </h2>
+        </div>
+
+        <div class="result-item">
+            <span>Skor SAW:</span>
+            <h2>{{ number_format($hasil->nilai_saw, 3) }}</h2>
+        </div>
+
+    </div>
+
+    {{-- INTERPRETASI --}}
+    <div class="analysis-box">
+
+        <h3>Interpretasi Hasil</h3>
+
+        <p>
+            @if($hasil->kategori_potensi == 'Potensi Tinggi')
+                UMKM memiliki performa sangat baik dan layak dikembangkan.
+            @elseif($hasil->kategori_potensi == 'Potensi Sedang')
+                UMKM cukup baik, tetapi masih perlu optimasi.
+            @else
+                UMKM perlu evaluasi menyeluruh.
+            @endif
+        </p>
+
+    </div>
+
+    {{-- REKOMENDASI --}}
+    <div class="recommendation-box">
+
+        <h3>Rekomendasi Sistem</h3>
+
+        <ul>
+            @if($hasil->kategori_potensi == 'Potensi Tinggi')
+                <li>✔ Ekspansi usaha</li>
+                <li>✔ Pertahankan efisiensi</li>
+                <li>✔ Diversifikasi produk</li>
+
+            @elseif($hasil->kategori_potensi == 'Potensi Sedang')
+                <li>✔ Tingkatkan efisiensi aset</li>
+                <li>✔ Optimalkan pemasaran</li>
+                <li>✔ Perbaiki produksi</li>
+
+            @else
+                <li>⚠ Evaluasi model bisnis</li>
+                <li>⚠ Kurangi biaya tidak efisien</li>
+                <li>⚠ Cari strategi baru</li>
+            @endif
+        </ul>
+
+    </div>
+
+    {{-- BUTTON --}}
+    <div class="action-button">
+        <a href="{{ url('/rekomendasi-form') }}" class="btn-primary">
+            Analisis UMKM Baru
+        </a>
+    </div>
+
+</div>
+
 @endsection

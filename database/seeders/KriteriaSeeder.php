@@ -1,0 +1,42 @@
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+
+class KriteriaSeeder extends Seeder
+{
+    public function run(): void
+    {
+        DB::table('m_kriteria')->updateOrInsert(
+            ['kode_kriteria' => 'K003'],
+            [
+                'nama_kriteria' => 'ROA',
+                'bobot' => 0.40,
+                'tipe' => 'benefit',
+                'deskripsi' => 'Return on Assets'
+            ]
+        );
+
+        DB::table('m_kriteria')->updateOrInsert(
+            ['kode_kriteria' => 'K004'],
+            [
+                'nama_kriteria' => 'Margin Laba',
+                'bobot' => 0.35,
+                'tipe' => 'benefit',
+                'deskripsi' => 'Persentase laba terhadap omset'
+            ]
+        );
+
+        DB::table('m_kriteria')->updateOrInsert(
+            ['kode_kriteria' => 'K007'],
+            [
+                'nama_kriteria' => 'Utilisasi Produksi',
+                'bobot' => 0.25,
+                'tipe' => 'benefit',
+                'deskripsi' => 'Tingkat pemanfaatan kapasitas produksi'
+            ]
+        );
+    }
+}
