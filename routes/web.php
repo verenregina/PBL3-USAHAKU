@@ -7,6 +7,8 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KelolaDataController;
 use App\Http\Controllers\JenisUsahaController;
 use App\Http\Controllers\WilayahController;
+use App\Http\Controllers\BobotSawController;
+use App\Http\Controllers\RuleForwardController;
 use App\Models\JenisUsaha;
 
 /*
@@ -83,22 +85,56 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/kelola-data', [KelolaDataController::class, 'index'])
         ->name('admin.kelola-data');
 
+    Route::get('/admin/kelola-data/search', [KelolaDataController::class, 'search'])
+        ->name('kelola-data.search');
 
-    /*
-    |--------------------------------------------------------------------------
-    | CRUD DATA
-    |--------------------------------------------------------------------------
-    */
+    Route::get('/admin/kelola-data/{id}', [KelolaDataController::class, 'show'])
+        ->name('kelola-data.show');
 
-    Route::post('/admin/kelola-data', [KelolaDataController::class, 'store'])
-        ->name('kelola-data.store');
+   /*
+|--------------------------------------------------------------------------
+| CRUD DATA
+|--------------------------------------------------------------------------
+*/
+
+Route::post('/admin/kelola-data', [KelolaDataController::class, 'store'])
+    ->name('kelola-data.store');
+
+Route::put('/admin/kelola-data/{id}', [KelolaDataController::class, 'update'])
+    ->name('kelola-data.update');
+
+Route::delete('/admin/kelola-data/{id}', [KelolaDataController::class, 'destroy'])
+    ->name('kelola-data.destroy');
 
 
-    Route::put('/admin/kelola-data/{id}', [KelolaDataController::class, 'update'])
-        ->name('kelola-data.update');
+/*
+|--------------------------------------------------------------------------
+| KELOLA BOBOT SAW
+|--------------------------------------------------------------------------
+*/
 
+Route::get('/admin/bobot-saw', [BobotSawController::class, 'index'])
+    ->name('admin.bobot.index');
 
-    Route::delete('/admin/kelola-data/{id}', [KelolaDataController::class, 'destroy'])
-        ->name('kelola-data.destroy');
+Route::post('/admin/bobot-saw', [BobotSawController::class, 'update'])
+    ->name('admin.bobot.update');
+
+/*
+|--------------------------------------------------------------------------
+| KELOLA RULE FORWARD CHAINING
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/admin/rule-forward', [RuleForwardController::class, 'index'])
+    ->name('admin.rule.index');
+
+Route::post('/admin/rule-forward', [RuleForwardController::class, 'store'])
+    ->name('admin.rule.store');
+
+Route::put('/admin/rule-forward/{id}', [RuleForwardController::class, 'update'])
+    ->name('admin.rule.update');
+
+Route::delete('/admin/rule-forward/{id}', [RuleForwardController::class, 'destroy'])
+    ->name('admin.rule.destroy');
 
 });

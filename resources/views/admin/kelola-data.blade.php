@@ -493,11 +493,16 @@
     {{-- FILTER BAR --}}
     <form class="filter-bar" action="{{ route('admin.kelola-data') }}" method="GET">
         <div class="filter-group">
+            <span class="filter-label">Cari</span>
+            <input type="text" class="filter-input" name="q" value="{{ $q ?? '' }}" placeholder="Nama usaha, ID, daerah..." />
+        </div>
+        <div class="filter-divider"></div>
+        <div class="filter-group">
             <span class="filter-label">Kategori</span>
             <select class="filter-select" name="kategori">
                 <option value="">Semua Kategori</option>
                 @foreach($jenisUsaha as $jenis)
-                    <option value="{{ $jenis->id_jenis_usaha }}" {{ $filterKategori == $jenis->id_jenis_usaha ? 'selected' : '' }}>
+                    <option value="{{ $jenis->id_jenis_usaha }}">
                         {{ $jenis->nama_jenis_usaha }}
                     </option>
                 @endforeach
@@ -508,14 +513,14 @@
             <span class="filter-label">Status</span>
             <select class="filter-select" name="status">
                 <option value="">Semua Status</option>
-                <option value="aktif" {{ $filterStatus === 'aktif' ? 'selected' : '' }}>Aktif</option>
-                <option value="nonaktif" {{ $filterStatus === 'nonaktif' ? 'selected' : '' }}>Non-Aktif</option>
+                <option value="aktif">Aktif</option>
+                <option value="nonaktif">Non-Aktif</option>
             </select>
         </div>
         <div class="filter-divider"></div>
         <div class="filter-group">
             <span class="filter-label">Kota</span>
-            <input type="text" class="filter-input" name="kota" value="{{ $filterKota }}" placeholder="Cari kota..." />
+            <input type="text" class="filter-input" name="kota" placeholder="Cari kota..." />
         </div>
         <div class="filter-divider"></div>
         <button type="submit" class="btn-reset">Terapkan</button>
@@ -526,7 +531,7 @@
     <div class="table-card">
         <div class="table-card-header">
             <h3>Daftar Data Usaha</h3>
-            <span class="table-count">{{ count($dataUsaha) }} data</span>
+            <span class="table-count">{{ $dataUsaha->total() }} data</span>
         </div>
 
         <table class="data-table">
@@ -537,8 +542,6 @@
                     <th class="sortable">Kategori <span class="sort-icon">↕</span></th>
                     <th class="sortable">Kota/Kab <span class="sort-icon">↕</span></th>
                     <th class="sortable">Modal Awal <span class="sort-icon">↕</span></th>
-                    <th>Status</th>
-                    <th>Potensi</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -558,29 +561,13 @@
                     <td>{{ $item->daerah?->nama_daerah ?? '-' }}</td>
                     <td class="modal-value">Rp {{ number_format($item->aset, 0, ',', '.') }}</td>
                     <td>
-                        <span class="status-dot">
-                            <span class="dot {{ $item->laba >= 0 ? 'dot-aktif' : 'dot-nonaktif' }}"></span>
-                            <span class="{{ $item->laba >= 0 ? 'text-aktif' : 'text-nonaktif' }}">
-                                {{ $item->laba >= 0 ? 'Aktif' : 'Nonaktif' }}
-                            </span>
-                        </span>
-                    </td>
-                    <td>
-                        @php
-                            $potensi = $item->laba > 0 ? 'Tinggi' : ($item->laba == 0 ? 'Sedang' : 'Rendah');
-                        @endphp
-                        <span class="badge badge-{{ \Illuminate\Support\Str::slug(strtolower($potensi)) }}">
-                            {{ $potensi }}
-                        </span>
-                    </td>
-                    <td>
                         <div class="action-group">
-                            <button class="btn-action btn-view" title="Detail">
+                            <a class="btn-action btn-view" title="Detail" href="{{ route('kelola-data.show', $item->id_umkm) }}">
                                 <svg viewBox="0 0 20 20" fill="currentColor">
                                     <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/>
                                     <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"/>
                                 </svg>
-                            </button>
+                            </a>
                             <button class="btn-action btn-edit" title="Edit" onclick="openEditModal(this)"
                                 data-id="{{ $item->id_umkm }}"
                                 data-nama_usaha="{{ $item->nama_usaha }}"
@@ -615,7 +602,7 @@
                 </tr>
                 @empty
                 <tr>
-                    <td colspan="8" style="padding: 32px; text-align: center; color: #9ca3af; font-size: 13px;">
+                    <td colspan="6" style="padding: 32px; text-align: center; color: #9ca3af; font-size: 13px;">
                         Tidak ada data usaha untuk ditampilkan.
                     </td>
                 </tr>
@@ -626,20 +613,22 @@
         {{-- PAGINATION --}}
         <div class="pagination-bar">
             <span class="pagination-info">
-                Menampilkan 1–{{ min(count($dataUsaha), 10) }} dari {{ count($dataUsaha) }} data
+                Menampilkan {{ $dataUsaha->firstItem() ?? 0 }}–{{ $dataUsaha->lastItem() ?? 0 }} dari {{ $dataUsaha->total() }} data
             </span>
             <div class="pagination-pages">
-                <a class="page-btn">
+                <a class="page-btn" href="{{ $dataUsaha->previousPageUrl() ?? '#' }}" {!! $dataUsaha->onFirstPage() ? 'style="pointer-events:none; opacity:.5;"' : '' !!}>
                     <svg viewBox="0 0 20 20" fill="currentColor">
                         <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"/>
                     </svg>
                 </a>
-                <a class="page-btn active">1</a>
-                <a class="page-btn">2</a>
-                <a class="page-btn">3</a>
-                <span style="font-size:12px; color:#9ca3af; padding: 0 4px;">...</span>
-                <a class="page-btn">50</a>
-                <a class="page-btn">
+                @foreach(range(max(1, $dataUsaha->currentPage() - 2), min($dataUsaha->lastPage(), $dataUsaha->currentPage() + 2)) as $page)
+                    <a class="page-btn{{ $page == $dataUsaha->currentPage() ? ' active' : '' }}" href="{{ $dataUsaha->url($page) }}">{{ $page }}</a>
+                @endforeach
+                @if($dataUsaha->currentPage() + 2 < $dataUsaha->lastPage())
+                    <span style="font-size:12px; color:#9ca3af; padding: 0 4px;">...</span>
+                    <a class="page-btn" href="{{ $dataUsaha->url($dataUsaha->lastPage()) }}">{{ $dataUsaha->lastPage() }}</a>
+                @endif
+                <a class="page-btn" href="{{ $dataUsaha->nextPageUrl() ?? '#' }}" {!! $dataUsaha->hasMorePages() ? '' : 'style="pointer-events:none; opacity:.5;"' !!}>
                     <svg viewBox="0 0 20 20" fill="currentColor">
                         <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
                     </svg>

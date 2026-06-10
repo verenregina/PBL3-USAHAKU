@@ -392,7 +392,31 @@
 
                 <span>Dataset</span>
             </a>
+    {{-- BOBOT SAW --}}
+<a href="{{ route('admin.bobot.index') }}"
+   class="menu-item {{ request()->routeIs('admin.bobot.*') ? 'active' : '' }}">
 
+    <svg viewBox="0 0 20 20" fill="currentColor">
+        <path fill-rule="evenodd"
+              d="M10 2a1 1 0 01.894.553l2 4A1 1 0 0112 8H8a1 1 0 01-.894-1.447l2-4A1 1 0 0110 2zM4 10a2 2 0 100 4 2 2 0 000-4zm10 1a1 1 0 011-1h2a1 1 0 110 2h-2a1 1 0 01-1-1zm-4 5a3 3 0 100 6 3 3 0 000-6z"
+              clip-rule="evenodd"/>
+    </svg>
+
+    <span>Bobot SAW</span>
+</a>
+
+{{-- RULE FORWARD CHAINING --}}
+<a href="{{ route('admin.rule.index') }}"
+   class="menu-item {{ request()->routeIs('admin.rule.*') ? 'active' : '' }}">
+
+    <svg viewBox="0 0 20 20" fill="currentColor">
+        <path fill-rule="evenodd"
+              d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h1v2H5a2 2 0 000 4h1v2a2 2 0 104 0v-2h1a2 2 0 100-4h-1V9h1a2 2 0 100-4h-1V3a2 2 0 10-4 0v2H5z"
+              clip-rule="evenodd"/>
+    </svg>
+
+    <span>Rule Forward Chaining</span>
+</a>
             {{-- DATA USAHA --}}
             <a href="{{ route('admin.dashboard') }}"
                class="menu-item {{ request()->routeIs('admin.data-usaha') ? 'active' : '' }}">
@@ -414,7 +438,7 @@
                     <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/>
                 </svg>
 
-                <span>History</span>
+                <span>Hasil Analisis</span>
             </a>
 
             <a href="{{ route('admin.riwayat-pengguna') }}"

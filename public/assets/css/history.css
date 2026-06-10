@@ -1,0 +1,352 @@
+/* ============================================================
+   History Analisis — history.css
+   Konsisten: orange #f97316, navy #1a2236, abu #6b7280
+   ============================================================ */
+
+/* ── Section header ───────────────────────────────────────── */
+.hist-section-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #9ca3af;
+    margin: 0 0 4px;
+}
+
+.hist-section-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1a2236;
+    margin: 0 0 16px;
+}
+
+/* ── Card ─────────────────────────────────────────────────── */
+.hist-card {
+    background: #ffffff;
+    border: 1px solid #f3f4f6;
+    border-radius: 14px;
+    overflow: hidden;
+}
+
+/* ── Toolbar ──────────────────────────────────────────────── */
+.hist-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 13px 20px;
+    background: #fafafa;
+    border-bottom: 1px solid #f3f4f6;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.hist-toolbar-left {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+}
+
+.hist-toolbar-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #1a2236;
+}
+
+.hist-badge-count {
+    background: #fff7ed;
+    color: #c2410c;
+    border: 1px solid rgba(249,115,22,0.22);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 20px;
+}
+
+/* Search box */
+.hist-search {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 6px 11px;
+    transition: border-color 0.15s;
+}
+
+.hist-search:focus-within {
+    border-color: #f97316;
+    box-shadow: 0 0 0 3px rgba(249,115,22,0.08);
+}
+
+.hist-search i {
+    font-size: 14px;
+    color: #9ca3af;
+}
+
+.hist-search input {
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 12.5px;
+    color: #1a2236;
+    width: 150px;
+}
+
+.hist-search input::placeholder {
+    color: #d1d5db;
+}
+
+/* ── Table ────────────────────────────────────────────────── */
+.hist-table-wrap {
+    overflow-x: auto;
+}
+
+.hist-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+.hist-table thead tr {
+    background: #f9fafb;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.hist-table th {
+    padding: 9px 14px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: #9ca3af;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.hist-table th.th-right { text-align: right; }
+
+.hist-table td {
+    padding: 11px 14px;
+    font-size: 12.5px;
+    color: #1a2236;
+    border-bottom: 1px solid #f9fafb;
+    vertical-align: middle;
+}
+
+.hist-table tbody tr:last-child td { border-bottom: none; }
+.hist-table tbody tr:hover td { background: #fafafa; }
+
+/* No */
+.td-no {
+    font-size: 12px;
+    color: #9ca3af;
+}
+
+/* Tanggal */
+.td-date {
+    font-size: 11.5px;
+    color: #6b7280;
+    font-family: 'Courier New', monospace;
+    white-space: nowrap;
+}
+
+/* User chip */
+.user-chip {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.user-avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #fff7ed;
+    border: 1px solid rgba(249,115,22,0.22);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 700;
+    color: #f97316;
+    flex-shrink: 0;
+}
+
+.user-name {
+    font-size: 12.5px;
+    font-weight: 500;
+    color: #1a2236;
+}
+
+/* Nama usaha */
+.td-usaha {
+    font-weight: 600;
+    color: #1a2236;
+}
+
+/* Badge jenis usaha */
+.badge-jenis {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 20px;
+    background: #f9fafb;
+    color: #6b7280;
+    border: 1px solid #e5e7eb;
+    white-space: nowrap;
+}
+
+/* Metric cells */
+.td-metric {
+    text-align: right;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: #1a2236;
+    font-family: 'Courier New', monospace;
+}
+
+/* SAW score + mini bar */
+.td-saw {
+    white-space: nowrap;
+}
+
+.saw-score {
+    font-size: 13px;
+    font-weight: 700;
+    color: #1a2236;
+    font-family: 'Courier New', monospace;
+}
+
+.saw-mini-bar {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 5px;
+    width: 38px;
+    height: 4px;
+    background: #f3f4f6;
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.saw-mini-fill {
+    height: 100%;
+    background: #f97316;
+    border-radius: 2px;
+}
+
+/* Kategori badges */
+.badge-kategori {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 20px;
+    white-space: nowrap;
+}
+
+.badge-kategori.tinggi {
+    background: #eaf3de;
+    color: #27500a;
+    border: 1px solid #c0dd97;
+}
+
+.badge-kategori.sedang {
+    background: #fff7ed;
+    color: #c2410c;
+    border: 1px solid rgba(249,115,22,0.3);
+}
+
+.badge-kategori.rendah {
+    background: #fcebeb;
+    color: #791f1f;
+    border: 1px solid #f7c1c1;
+}
+
+/* ── Empty state ──────────────────────────────────────────── */
+.empty-state {
+    text-align: center;
+    padding: 48px 20px;
+}
+
+.empty-state-icon {
+    font-size: 32px;
+    margin-bottom: 10px;
+    opacity: 0.5;
+}
+
+.empty-state-text {
+    font-size: 13px;
+    color: #9ca3af;
+}
+
+/* ── Pagination footer ────────────────────────────────────── */
+.hist-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 20px;
+    background: #fafafa;
+    border-top: 1px solid #f3f4f6;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.hist-page-info {
+    font-size: 12px;
+    color: #9ca3af;
+}
+
+/* Override default Laravel pagination agar konsisten */
+.hist-footer .pagination {
+    display: flex;
+    gap: 4px;
+    margin: 0;
+    list-style: none;
+    padding: 0;
+}
+
+.hist-footer .pagination .page-item .page-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 28px;
+    height: 28px;
+    padding: 0 6px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    border: 1px solid #e5e7eb;
+    color: #6b7280;
+    background: #ffffff;
+    text-decoration: none;
+    transition: background 0.13s, border-color 0.13s;
+}
+
+.hist-footer .pagination .page-item .page-link:hover {
+    background: #f9fafb;
+    border-color: #d1d5db;
+    color: #1a2236;
+}
+
+.hist-footer .pagination .page-item.active .page-link {
+    background: #f97316;
+    border-color: #f97316;
+    color: #ffffff;
+}
+
+.hist-footer .pagination .page-item.disabled .page-link {
+    background: #fafafa;
+    color: #d1d5db;
+    cursor: not-allowed;
+}
+
+/* ── Responsive ───────────────────────────────────────────── */
+@media (max-width: 768px) {
+    .hist-toolbar { padding: 11px 14px; }
+    .hist-table th,
+    .hist-table td { padding: 9px 10px; }
+    .hist-search input { width: 110px; }
+    .hist-footer { flex-direction: column; align-items: flex-start; }
+}
