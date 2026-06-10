@@ -10,11 +10,14 @@
         <div class="container hero-wrapper">
             <div class="hero-text">
                 <h1>
-                    Selamat Datang Di USAHAKU!<br>Sistem Rekomendasi Potensi Usaha
+                    Selamat Datang Di USAHAKU!
                 </h1>
+                <h2>
+                    Temukan Potensi Usaha Anda dengan Analisis yang Cerdas
+                </h2>
                 <p>
-                    Temukan apakah modal dan jenis usaha yang Anda minati memiliki potensi berdasarkan data
-                    historis dari dataset usaha di <span>Jawa Timur</span>.
+                    Analisis kondisi usaha Anda dan temukan rekomendasi yang tepat 
+                    untuk meningkatkan produktivitas, daya saing, dan peluang pertumbuhan usaha.
                 </p>
 
                 <a href="#rekomendasi" class="btn-primary">

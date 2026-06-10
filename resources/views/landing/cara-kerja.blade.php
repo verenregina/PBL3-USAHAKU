@@ -6,12 +6,12 @@
             <span class="step-number">1</span>
 
             <div class="step-icon">
-                <i class="fa-solid fa-right-to-bracket"></i>
+                <i class="fa-solid fa-file-pen"></i>
             </div>
 
             <div class="step-text">
-                <h3>Login</h3>
-                <p>Buat akun menggunakan email dan password.</p>
+                <h3>Input Data Usaha</h3>
+                <p>Masukkan data usaha yang ingin dianalisis.</p>
             </div>
         </div>
 
@@ -19,12 +19,12 @@
             <span class="step-number">2</span>
 
             <div class="step-icon">
-                <i class="fa-solid fa-clipboard-list"></i>
+                <i class="fa-solid fa-brain"></i>
             </div>
 
             <div class="step-text">
-                <h3>Input Data Usaha</h3>
-                <p>Masukkan modal dan jenis usaha yang ingin dianalisis.</p>
+                <h3>Analisis Data</h3>
+                <p>Sistem mencocokkan data dengan basis pengetahuan.</p>
             </div>
         </div>
 
@@ -32,12 +32,12 @@
             <span class="step-number">3</span>
 
             <div class="step-icon">
-                <i class="fa-solid fa-database"></i>
+                <i class="fa-solid fa-magnifying-glass-chart"></i>
             </div>
 
             <div class="step-text">
-                <h3>Analisis Data</h3>
-                <p>Sistem akan mencocokkan dengan data historis.</p>
+                <h3>Evaluasi</h3>
+                <p>Menilai kondisi dan kebutuhan usaha.</p>
             </div>
         </div>
 
@@ -45,12 +45,12 @@
             <span class="step-number">4</span>
 
             <div class="step-icon">
-                <i class="fa-solid fa-chart-column"></i>
+                <i class="fa-solid fa-lightbulb"></i>
             </div>
 
             <div class="step-text">
                 <h3>Hasil Rekomendasi</h3>
-                <p>Dapatkan analisis potensi usaha beserta insight.</p>
+                <p>Menampilkan rekomendasi yang relevan.</p>
             </div>
         </div>
 
