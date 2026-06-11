@@ -4,12 +4,12 @@
 <head>
     <title>Sistem Rekomendasi Potensi Usaha Di Jawa Timur</title>
 
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <!-- FONT -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
-    <!-- ICON -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
     <!-- BOOTSTRAP -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -22,6 +22,12 @@
 
     <!-- NAVBAR & FOOTER -->
     <link rel="stylesheet" href="{{ asset('assets/css/navbar_footer.css') }}">
+
+    <!-- Critical fallback CSS: ensures nav layout even if external CSS fails to load -->
+    <style>
+        .nav-menu { list-style: none !important; display: flex !important; gap: 30px !important; margin: 0 !important; padding: 0 !important; align-items: center; }
+        .navbar .container { padding-left: 0 !important; padding-right: 20px !important; }
+    </style>
 
     <!-- AUTH & MODAL -->
     <link rel="stylesheet" href="{{ asset('assets/css/auth.css') }}">
