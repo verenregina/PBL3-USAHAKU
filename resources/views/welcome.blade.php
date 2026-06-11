@@ -5,6 +5,28 @@
 @endpush
 
 @section('content')
+
+@if(session('success'))
+    <div class="success-alert">
+        <i class="fas fa-circle-check"></i>
+        {{ session('success') }}
+    </div>
+
+        <script>
+        setTimeout(() => {
+            const alertBox = document.getElementById('successAlert');
+            if(alertBox){
+                alertBox.style.opacity = '0';
+                alertBox.style.transition = '0.10s';
+
+                setTimeout(() => {
+                    alertBox.remove();
+                }, 500);
+            }
+        }, 3000);
+    </script>
+@endif
+
     <!-- HERO SECTION -->
     <section class="hero">
         <div class="container hero-wrapper">
