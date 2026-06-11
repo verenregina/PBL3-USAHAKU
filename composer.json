@@ -40,8 +40,7 @@
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover --ansi",
-            "@php artisan route:clear",
-            "@php artisan config:clear"
+            "npm install && npm run build"
         ],
         "post-update-cmd": [
             "Illuminate\\Foundation\\VendorPublish::outputs",
