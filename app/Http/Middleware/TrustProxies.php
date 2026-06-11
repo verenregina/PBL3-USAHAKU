@@ -12,7 +12,10 @@ class TrustProxies extends Middleware
      *
      * @var array<int, string>|string|null
      */
-    protected $proxies;
+    // Percayai semua proxy (Railway / platform hosting) sehingga header
+    // X-Forwarded-* dapat digunakan untuk mendeteksi skema dan host asli.
+    // Gunakan '*' untuk mempercayai semua proxy.
+    protected $proxies = '*';
 
     /**
      * The headers that should be used to detect proxies.
