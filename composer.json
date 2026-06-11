@@ -41,7 +41,7 @@
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover --ansi",
             "npm install && npm run build",
-            "@php artisan db:seed --class=JenisUsahaSeeder --force" 
+            "@php artisan db:seed --force" 
         ],
         "post-update-cmd": [
             "Illuminate\\Foundation\\VendorPublish::outputs",
