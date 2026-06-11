@@ -62,7 +62,10 @@ public function login(Request $request)
             'role' => 'user'
         ]);
 
-        return redirect('/login')->with('success', 'Register berhasil');
+        return redirect()->route('home')->with(
+            'success',
+            'Register berhasil. Silakan masuk menggunakan akun Anda.'
+        );
     }
 
     // LOGOUT

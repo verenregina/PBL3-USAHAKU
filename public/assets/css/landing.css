@@ -1,3 +1,31 @@
+/* ================= SUCCESS ALERT ================= */
+.success-alert{
+    max-width: 500px;
+    margin: 100px auto 20px;
+
+    background: #ecfdf5;
+    color: #065f46;
+
+    border: 1px solid #a7f3d0;
+    border-left: 5px solid #10b981;
+
+    padding: 14px 18px;
+    border-radius: 12px;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    font-size: 14px;
+    font-weight: 500;
+
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.success-alert i{
+    font-size: 18px;
+}
+
 /* ===================== */
 /* HERO */
 /* ===================== */
