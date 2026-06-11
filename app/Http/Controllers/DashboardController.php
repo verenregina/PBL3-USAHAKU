@@ -7,7 +7,7 @@ use App\Models\JenisUsaha;
 use App\Models\User;
 use App\Models\Umkm;
 use Carbon\Carbon;
-
+use Barryvdh\DomPDF\Facade\Pdf;
 class DashboardController extends Controller
 {
     public function index()
@@ -51,6 +51,16 @@ class DashboardController extends Controller
 
         return view('admin.history', compact('histories'));
     }
+
+    public function exportPdf($id)
+{
+    $history = HasilAnalisis::with(['analisisUsaha.user'])
+        ->findOrFail($id);
+
+    $pdf = Pdf::loadView('admin.history-pdf', compact('history'));
+
+    return $pdf->download('laporan-'.$history->id.'.pdf');
+}
 
     public function userHistory()
     {

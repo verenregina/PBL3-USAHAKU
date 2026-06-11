@@ -380,18 +380,6 @@
                 <span>Kelola Data</span>
             </a>
 
-            {{-- DATASET --}}
-            <a href="{{ route('admin.dashboard') }}"
-               class="menu-item {{ request()->routeIs('admin.dataset') ? 'active' : '' }}">
-
-                <svg viewBox="0 0 20 20" fill="currentColor">
-                    <path d="M3 12v3c0 1.657 3.134 3 7 3s7-1.343 7-3v-3c0 1.657-3.134 3-7 3s-7-1.343-7-3z"/>
-                    <path d="M3 7v3c0 1.657 3.134 3 7 3s7-1.343 7-3V7c0 1.657-3.134 3-7 3S3 8.657 3 7z"/>
-                    <path d="M17 5c0 1.657-3.134 3-7 3S3 6.657 3 5s3.134-3 7-3 7 1.343 7 3z"/>
-                </svg>
-
-                <span>Dataset</span>
-            </a>
     {{-- BOBOT SAW --}}
 <a href="{{ route('admin.bobot.index') }}"
    class="menu-item {{ request()->routeIs('admin.bobot.*') ? 'active' : '' }}">
@@ -430,6 +418,17 @@
 
             {{-- RIWAYAT --}}
             <p class="menu-section">Riwayat</p>
+
+                    {{-- DATA USAHA --}}
+<a href="{{ route('admin.laporan') }}"
+   class="menu-item {{ request()->routeIs('admin.laporan') ? 'active' : '' }}">
+
+    <svg viewBox="0 0 20 20" fill="currentColor">
+        <path d="M3 3a1 1 0 000 2v10a2 2 0 002 2h10a1 1 0 100-2H5V5a1 1 0 00-2 0zm4 8a1 1 0 011-1h1a1 1 0 011 1v3H7v-3zm4-4a1 1 0 011-1h1a1 1 0 011 1v7h-3V7zm-8 2a1 1 0 011-1h1a1 1 0 011 1v5H3V9z"/>
+    </svg>
+
+    <span>Laporan Statistik UMKM</span>
+</a>
 
             <a href="{{ route('admin.history') }}"
                class="menu-item {{ request()->routeIs('admin.history') ? 'active' : '' }}">
@@ -532,6 +531,10 @@
 </div>
 
 @stack('modals')
+
+{{-- Chart JS --}}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 @stack('scripts')
 
 </body>
