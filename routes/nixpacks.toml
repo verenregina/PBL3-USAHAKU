@@ -1,5 +1,16 @@
+# Menentukan provider yang digunakan
 [providers.php]
-date = "2024-11-25" # Menggunakan snapshot lingkungan yang mendukung PHP modern
+version = "8.4"
 
+# Memaksa instalasi paket PHP 8.4 beserta extension yang dibutuhkan Laravel
 [phases.setup]
-nixPkgs = ["...", "php84", "php84Packages.composer"]
+nixPkgs = ["php84", "php84Packages.composer", "nodejs"]
+
+[phases.build]
+cmds = [
+    "composer install --ignore-platform-reqs --no-dev --optimize-autoloader",
+    "npm install && npm run build"
+]
+
+[phases.start]
+cmd = "php artisan serve --host 0.0.0.0 --port ${PORT}"
