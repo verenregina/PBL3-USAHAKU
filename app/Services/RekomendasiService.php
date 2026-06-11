@@ -4,7 +4,6 @@ namespace App\Services;
 
 use App\Models\AnalisisUsaha;
 use App\Models\HasilAnalisis;
-use App\Models\Kriteria;
 
 class RekomendasiService
 {
@@ -38,33 +37,52 @@ class RekomendasiService
         $roa = ($input->laba / max($input->aset, 1)) * 100;
         $margin = ($input->laba / max($input->omset, 1)) * 100;
         $utilisasi = ($input->produksi_aktual / max($input->kapasitas_produksi, 1)) * 100;
+        $produktivitas = $input->omset / max($input->jumlah_karyawan, 1);
 
-        // 3. FORWARD CHAINING
-        $kategori = $this->ruleService->evaluate($roa, $margin, $utilisasi);
-
-        // 4. SAW
+        // 3. SAW
         $dataKriteria = [
             'K003' => $roa,
             'K004' => $margin,
             'K007' => $utilisasi,
+            'K008' => $produktivitas,
         ];
 
         $nilaiSaw = $this->sawService->calculate($dataKriteria);
 
-        // 5. SIMPAN HASIL
+        // 4. Kategori Potensi
+        $kategoriPotensi = match (true) {
+            $nilaiSaw >= 80 => 'Potensi Tinggi',
+            $nilaiSaw >= 60 => 'Potensi Sedang',
+            default => 'Potensi Rendah'
+        };
+
+        // 5. Forward Chaining
+        $rekomendasi = $this->ruleService->generateRecommendation(
+            $roa,
+            $margin,
+            $utilisasi,
+            $produktivitas
+        );
+
+        // 6. SIMPAN HASIL
         return HasilAnalisis::create([
+
             'analisis_usaha_id' => $input->id,
 
             'roa' => $roa,
             'margin_laba' => $margin,
             'utilisasi_produksi' => $utilisasi,
+            'produktivitas' => $produktivitas,
 
             'roa_label' => $this->labelRoa($roa),
             'margin_label' => $this->labelMargin($margin),
             'utilisasi_label' => $this->labelUtilisasi($utilisasi),
+            'produktivitas_label' => $this->labelProduktivitas($produktivitas),
 
             'nilai_saw' => $nilaiSaw,
-            'kategori_potensi' => $kategori,
+            'kategori_potensi' => $kategoriPotensi,
+
+            'rekomendasi' => json_encode($rekomendasi),
         ]);
     }
 
@@ -81,5 +99,14 @@ class RekomendasiService
     private function labelUtilisasi($utilisasi)
     {
         return $utilisasi >= 85 ? 'Optimal' : ($utilisasi >= 60 ? 'Cukup' : 'Kurang');
+    }
+
+    private function labelProduktivitas($nilai)
+    {
+        return $nilai >= 5000000
+            ? 'Tinggi'
+            : ($nilai >= 2000000
+                ? 'Sedang'
+                : 'Rendah');
     }
 }

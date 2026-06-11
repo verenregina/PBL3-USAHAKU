@@ -13,7 +13,7 @@ class KriteriaSeeder extends Seeder
             ['kode_kriteria' => 'K003'],
             [
                 'nama_kriteria' => 'ROA',
-                'bobot' => 0.40,
+                'bobot' => 0.30,
                 'tipe' => 'benefit',
                 'deskripsi' => 'Return on Assets'
             ]
@@ -23,7 +23,7 @@ class KriteriaSeeder extends Seeder
             ['kode_kriteria' => 'K004'],
             [
                 'nama_kriteria' => 'Margin Laba',
-                'bobot' => 0.35,
+                'bobot' => 0.25,
                 'tipe' => 'benefit',
                 'deskripsi' => 'Persentase laba terhadap omset'
             ]
@@ -36,6 +36,16 @@ class KriteriaSeeder extends Seeder
                 'bobot' => 0.25,
                 'tipe' => 'benefit',
                 'deskripsi' => 'Tingkat pemanfaatan kapasitas produksi'
+            ]
+        );
+
+        DB::table('m_kriteria')->updateOrInsert(
+            ['kode_kriteria' => 'K008'],
+            [
+                'nama_kriteria' => 'Produktivitas',
+                'bobot' => 0.20,
+                'tipe' => 'benefit',
+                'deskripsi' => 'Pendapatan per jumlah karyawan'
             ]
         );
     }
