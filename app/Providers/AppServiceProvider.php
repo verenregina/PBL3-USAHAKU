@@ -20,8 +20,26 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // Memaksa skema HTTPS jika aplikasi berjalan di Railway (Production)
-        if (config('app.env') === 'production' || isset($_SERVER['HTTPS'])) {
+        // Memaksa skema HTTPS jika aplikasi berjalan di Railway atau di balik proxy HTTPS.
+        $https = false;
+
+        if (config('app.env') === 'production') {
+            $https = true;
+        }
+
+        if (!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) !== 'off') {
+            $https = true;
+        }
+
+        if (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && str_contains(strtolower($_SERVER['HTTP_X_FORWARDED_PROTO']), 'https')) {
+            $https = true;
+        }
+
+        if (!empty($_SERVER['HTTP_X_FORWARDED_SSL']) && strtolower($_SERVER['HTTP_X_FORWARDED_SSL']) === 'on') {
+            $https = true;
+        }
+
+        if ($https) {
             URL::forceScheme('https');
         }
     }
