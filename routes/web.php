@@ -9,6 +9,7 @@ use App\Http\Controllers\JenisUsahaController;
 use App\Http\Controllers\WilayahController;
 use App\Http\Controllers\BobotSawController;
 use App\Http\Controllers\RuleForwardController;
+use App\Http\Controllers\LaporanController;
 use App\Models\JenisUsaha;
 
 /*
@@ -72,10 +73,20 @@ Route::middleware('auth')->group(function () {
         return redirect()->route('admin.dashboard');
     });
 
-    Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
-    Route::get('/admin/history', [DashboardController::class, 'history'])->name('admin.history');
-    Route::get('/admin/riwayat-pengguna', [DashboardController::class, 'userHistory'])->name('admin.riwayat-pengguna');
+    Route::get('/admin/dashboard', [DashboardController::class, 'index'])
+    ->name('admin.dashboard');
 
+Route::get('/admin/history', [DashboardController::class, 'history'])
+    ->name('admin.history');
+
+    // EXPORT PDF PER DATA (DOWNLOAD)
+    Route::get('/admin/history/{id}/export-pdf', [DashboardController::class, 'exportPdf'])
+        ->name('admin.history.pdf');
+
+Route::get('/admin/riwayat-pengguna',
+    [DashboardController::class, 'userHistory'])
+    ->name('admin.riwayat-pengguna');
+    
     /*
     |--------------------------------------------------------------------------
     | KELOLA DATA
@@ -136,5 +147,13 @@ Route::put('/admin/rule-forward/{id}', [RuleForwardController::class, 'update'])
 
 Route::delete('/admin/rule-forward/{id}', [RuleForwardController::class, 'destroy'])
     ->name('admin.rule.destroy');
+/*
+|--------------------------------------------------------------------------
+| LAPORAN DAN STATISTIK
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/admin/laporan', [LaporanController::class, 'index'])
+    ->name('admin.laporan');
 
 });
