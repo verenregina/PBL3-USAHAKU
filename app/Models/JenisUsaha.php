@@ -11,7 +11,6 @@ class JenisUsaha extends Model
     protected $primaryKey = 'id_jenis_usaha';
 
     protected $fillable = [
-        'kode_jenis_usaha',
         'nama_jenis_usaha'
     ];
 }
