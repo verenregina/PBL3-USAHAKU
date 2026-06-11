@@ -1,0 +1,5 @@
+[providers.php]
+date = "2024-11-25" # Menggunakan snapshot lingkungan yang mendukung PHP modern
+
+[phases.setup]
+nixPkgs = ["...", "php84", "php84Packages.composer"]
