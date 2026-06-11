@@ -1,28 +1,40 @@
-<footer class="footer" style="padding:18px 0;">
-    <div class="footer-wrapper">
+<footer style="
+    background:#1f2d3d;
+    color:white;
+    padding:18px 0;
+    text-align:center;
+">
 
-        <div class="footer-top">
-            <p class="footer-desc" style="margin-bottom:10px;">
-                Sistem rekomendasi usaha berbasis data untuk membantu UMKM berkembang.
-            </p>
-        </div>
+    <p style="
+        margin:0 0 8px 0;
+        font-size:15px;
+        line-height:1.6;
+    ">
+        Sistem rekomendasi usaha berbasis data untuk membantu UMKM berkembang dan bersaing di pasar global.
+    </p>
 
-        <div class="footer-line" style="
-            width:480px;
-            margin:5px auto;
-        "></div>
+    <div style="
+        width:680px;
+        max-width:80%;
+        height:1px;
+        background:rgba(255,255,255,0.4);
+        margin:8px auto;
+    "></div>
 
-        <div class="logo-center" style="margin:8px 0 12px 0;">
-            <img src="{{ asset('assets/images/logo.png') }}"
-                 alt="logo"
-                 style="height:35px;">
-        </div>
+    <img src="{{ asset('assets/images/logo.png') }}"
+         alt="logo"
+         style="
+            height:35px;
+            display:block;
+            margin:8px auto 8px auto;
+         ">
 
-        <div class="footer-bottom">
-            <p style="margin:0;">
-                © {{ date('Y') }} USAHAKU. All rights reserved.
-            </p>
-        </div>
+    <p style="
+        margin:0;
+        font-size:14px;
+        color:rgba(255,255,255,0.8);
+    ">
+        © {{ date('Y') }} USAHAKU. All rights reserved.
+    </p>
 
-    </div>
 </footer>

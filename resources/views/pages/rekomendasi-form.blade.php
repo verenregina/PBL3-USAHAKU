@@ -55,7 +55,10 @@
                 <!-- ================= DATA UMKM ================= -->
                 <div class="form-section-box">
 
-                    <div class="section-title">Data UMKM</div>
+                    <div class="section-title">
+                        <i class="fa-solid fa-store"></i>
+                        Data UMKM
+                    </div>
 
                     <div class="form-grid">
 
@@ -98,7 +101,10 @@
                 <!-- ================= DATA KEUANGAN ================= -->
                 <div class="form-section-box">
 
-                    <div class="section-title">Data Keuangan</div>
+                <div class="section-title">
+                    <i class="fa-solid fa-money-bill-trend-up"></i>
+                    Data Keuangan
+                </div>
 
                     <div class="form-grid">
 
@@ -126,7 +132,10 @@
                 <!-- ================= DATA OPERASIONAL ================= -->
                 <div class="form-section-box">
 
-                    <div class="section-title">Data Operasional</div>
+                <div class="section-title">
+                    <i class="fa-solid fa-industry"></i>
+                    Data Operasional
+                </div>
 
                     <div class="form-grid">
 

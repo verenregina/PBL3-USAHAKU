@@ -2,56 +2,78 @@
 
 namespace App\Services;
 
-use App\Models\Kriteria;
-
 class SawService
 {
-    public function calculate($dataKriteria)
+    public function calculate($data)
     {
-        $kriteriaList = Kriteria::all();
+        // ==========================
+        // KONVERSI KE SKOR 1 - 5
+        // ==========================
 
-        // 1. Siapkan nilai mentah
-        $matrix = [];
+        $skorRoa = match (true) {
+            $data['K003'] >= 30 => 5,
+            $data['K003'] >= 20 => 4,
+            $data['K003'] >= 10 => 3,
+            $data['K003'] >= 5  => 2,
+            default => 1
+        };
 
-        foreach ($kriteriaList as $kriteria) {
-            $matrix[$kriteria->kode_kriteria] = $dataKriteria[$kriteria->kode_kriteria] ?? 0;
-        }
+        $skorMargin = match (true) {
+            $data['K004'] >= 25 => 5,
+            $data['K004'] >= 15 => 4,
+            $data['K004'] >= 10 => 3,
+            $data['K004'] >= 5  => 2,
+            default => 1
+        };
 
-        // 2. Hitung max & min tiap kriteria
-        $max = [];
-        $min = [];
+        $skorUtilisasi = match (true) {
+            $data['K007'] >= 90 => 5,
+            $data['K007'] >= 80 => 4,
+            $data['K007'] >= 70 => 3,
+            $data['K007'] >= 60 => 2,
+            default => 1
+        };
 
-        foreach ($kriteriaList as $kriteria) {
-            $code = $kriteria->kode_kriteria;
+        $skorProduktivitas = match (true) {
+            $data['K008'] >= 5000000 => 5,
+            $data['K008'] >= 4000000 => 4,
+            $data['K008'] >= 3000000 => 3,
+            $data['K008'] >= 2000000 => 2,
+            default => 1
+        };
 
-            $max[$code] = $matrix[$code]; // karena 1 input (bisa dikembangkan multi data)
-            $min[$code] = $matrix[$code];
-        }
+        // ==========================
+        // NORMALISASI SAW
+        // ==========================
 
-        // 3. Normalisasi
-        $normalisasi = [];
+        $normalisasi = [
+            'K003' => $skorRoa / 5,
+            'K004' => $skorMargin / 5,
+            'K007' => $skorUtilisasi / 5,
+            'K008' => $skorProduktivitas / 5,
+        ];
 
-        foreach ($kriteriaList as $kriteria) {
+        // ==========================
+        // BOBOT
+        // ==========================
 
-            $code = $kriteria->kode_kriteria;
-            $nilai = $matrix[$code];
+        $bobot = [
+            'K003' => 0.30, // ROA
+            'K004' => 0.25, // Margin
+            'K007' => 0.25, // Utilisasi
+            'K008' => 0.20, // Produktivitas
+        ];
 
-            if ($kriteria->tipe == 'benefit') {
-                $normalisasi[$code] = $nilai / max($max[$code], 1);
-            } else {
-                $normalisasi[$code] = $min[$code] / max($nilai, 1);
-            }
-        }
+        // ==========================
+        // HITUNG SAW
+        // ==========================
 
-        // 4. Hitung nilai akhir
-        $total = 0;
+        $nilaiSaw =
+            ($normalisasi['K003'] * $bobot['K003']) +
+            ($normalisasi['K004'] * $bobot['K004']) +
+            ($normalisasi['K007'] * $bobot['K007']) +
+            ($normalisasi['K008'] * $bobot['K008']);
 
-        foreach ($kriteriaList as $kriteria) {
-            $code = $kriteria->kode_kriteria;
-
-            $total += $normalisasi[$code] * $kriteria->bobot;
-        }
-
-        return round($total * 100, 3);
+        return round($nilaiSaw * 100, 2);
     }
 }
